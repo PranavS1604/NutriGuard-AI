@@ -103,9 +103,13 @@ async def execute_travel_health_mission(
     from app.tools.google_maps_tool import GoogleMapsTool
     maps_tool = GoogleMapsTool()
     hospitals = maps_tool.find_hospitals(destination)
-    hospital_names = [h.get("name", "Unknown Hospital") for h in hospitals[:3]]
-    if not hospital_names:
-        hospital_names = [f"Local Emergency Medical Center — {normalized_dest}"]
+    hospital_recommendations = hospitals[:3]
+    if not hospital_recommendations:
+        hospital_recommendations = [{
+            "name": f"Local Emergency Medical Center — {normalized_dest}",
+            "vicinity": f"Central Area, {normalized_dest}",
+            "rating": None
+        }]
 
     # Build health summary
     cond_count = len(health_profile.conditions)
@@ -131,7 +135,7 @@ async def execute_travel_health_mission(
         risks=risk_assessment.medical_risks + risk_assessment.food_risks + risk_assessment.travel_risks,
         meal_plan=meal_plan,
         emergency_actions=risk_assessment.recommendations,
-        hospital_recommendations=hospital_names,
+        hospital_recommendations=hospital_recommendations,
         destination_advisories=travel_risk_result.travel_risks,
         waiter_card_url=risk_assessment.emergency_card_url,
         waiter_card_translation=getattr(risk_assessment, 'waiter_card_translation', None),

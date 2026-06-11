@@ -54,3 +54,4 @@ htmlcov/
 
 # Cloud / Deployment
 .gcloudignore
+config/service_account.json

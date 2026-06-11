@@ -9,7 +9,7 @@ class MissionResult(BaseModel):
     risks: List[str]
     meal_plan: List[str]
     emergency_actions: List[str]
-    hospital_recommendations: List[str]
+    hospital_recommendations: List[Any]
     destination_advisories: List[str]
     waiter_card_url: str
     waiter_card_translation: Optional[str] = None  # Gemini-translated emergency card text

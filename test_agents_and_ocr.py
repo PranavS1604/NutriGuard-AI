@@ -1,6 +1,9 @@
 import os
 import sys
 import asyncio
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Ensure app is importable
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
@@ -24,7 +27,7 @@ async def test_medical_parser():
     assert "Metformin" in result["medications"]
     assert "Warfarin" in result["medications"]
     assert result["risk_level"] == "High"
-    print("✅ Medical parser test passed.")
+    print("[SUCCESS] Medical parser test passed.")
 
 def test_destination_normalizer():
     print("\nTesting destination normalizer...")
@@ -39,7 +42,7 @@ def test_destination_normalizer():
     assert t2["country"] == "India"
     assert t2["cuisine"] == "Indian"
     assert t2["language"] == "hi"
-    print("✅ Destination normalizer test passed.")
+    print("[SUCCESS] Destination normalizer test passed.")
 
 async def test_orchestrator_execution():
     print("\nTesting agent orchestrator with custom metadata...")
@@ -90,8 +93,10 @@ async def test_orchestrator_execution():
     print("Waiter Card URL:", result.waiter_card_url)
     
     # Assertions
-    assert "Japan" in result.hospital_recommendations[0] or "Tokyo" in result.hospital_recommendations[0] or "St. Luke's" in result.hospital_recommendations[0] or "Mock" in result.hospital_recommendations[0]
-    print("✅ Orchestrator test passed.")
+    first_hosp = result.hospital_recommendations[0]
+    hosp_name = first_hosp.get("name", "") if isinstance(first_hosp, dict) else str(first_hosp)
+    assert "Japan" in hosp_name or "Tokyo" in hosp_name or "St. Luke's" in hosp_name or "Mock" in hosp_name
+    print("[SUCCESS] Orchestrator test passed.")
 
 async def test_query_agent():
     print("\nTesting Query Agent...")
@@ -112,7 +117,7 @@ async def test_query_agent():
     res2 = await agent.process_query("Where is the nearest hospital in Tokyo?")
     print("Query 2 (Hospital):", res2)
     
-    print("✅ Query Agent tests passed.")
+    print("[SUCCESS] Query Agent tests passed.")
 
 if __name__ == "__main__":
     asyncio.run(test_medical_parser())

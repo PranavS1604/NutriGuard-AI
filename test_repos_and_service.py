@@ -1,5 +1,8 @@
 import os
 import sys
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Ensure app is importable
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
@@ -65,12 +68,12 @@ def test_service():
     prices = asyncio.run(service.get_live_prices())
     print(f"Retrieved {len(prices)} live commodity prices from Agmarknet. Examples:")
     for fp in prices[:3]:
-        print(f"  - {fp.commodity}: Modal Price ₹{fp.price:.2f} ({fp.trend})")
+        print(f"  - {fp.commodity}: Modal Price INR {fp.price:.2f} ({fp.trend})")
         
     print("\n--- Service: Price for Specific Food (Bajra) ---")
     price_bajra = asyncio.run(service.get_price_for_food("Bajra"))
     if price_bajra:
-        print(f"  - {price_bajra.commodity} found: ₹{price_bajra.price:.2f} ({price_bajra.trend})")
+        print(f"  - {price_bajra.commodity} found: INR {price_bajra.price:.2f} ({price_bajra.trend})")
     
     print("\n--- Service: Food Nutrition (IFCT) ---")
     nut1 = service.get_food_nutrition("Bajra")

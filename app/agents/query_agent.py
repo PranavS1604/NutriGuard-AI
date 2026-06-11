@@ -89,7 +89,7 @@ class QueryAgent:
                 return "Which food or commodity's price are you looking for?"
             price_info = await self.knowledge.get_price_for_food(intent.food)
             if price_info:
-                return f"The current modal price for {price_info.commodity} is ₹{price_info.price} ({price_info.trend})."
+                return f"The current modal price for {price_info.commodity} is INR {price_info.price} ({price_info.trend})."
             return f"I couldn't find live market pricing for {intent.food}."
 
         # Default to safety_check
@@ -108,9 +108,9 @@ class QueryAgent:
             # Check allergens against dish ingredients
             dish_allergens = [a for a in allergies if a.lower() in str(ingredients).lower()]
             if dish_allergens:
-                response += f"⚠️ WARNING: This dish contains ingredients you are allergic to ({', '.join(dish_allergens)})!\n\n"
+                response += f"[WARNING] This dish contains ingredients you are allergic to ({', '.join(dish_allergens)})!\n\n"
             else:
-                response += f"✅ This dish appears safe for your profile based on common recipes.\n\n"
+                response += f"[SAFE] This dish appears safe for your profile based on common recipes.\n\n"
         else:
             # 2. If location is provided and no specific dish was matched, check location risks
             if location:
@@ -118,9 +118,9 @@ class QueryAgent:
                 is_high_risk = any(food.lower() in hr['dish_name'].lower() for hr in high_risk)
                 response += f"Checking '{food}' in '{location}'...\n"
                 if is_high_risk:
-                    response += f"⚠️ WARNING: '{food}' may contain ingredients you are allergic to ({', '.join(allergies)})!\n\n"
+                    response += f"[WARNING] '{food}' may contain ingredients you are allergic to ({', '.join(allergies)})!\n\n"
                 else:
-                    response += f"✅ '{food}' appears safe for your profile based on common recipes in {location}.\n\n"
+                    response += f"[SAFE] '{food}' appears safe for your profile based on common recipes in {location}.\n\n"
 
         # 3. Get USDA/IFCT food nutrition
         nutrition = self.knowledge.get_food_nutrition(food)
@@ -132,6 +132,30 @@ class QueryAgent:
             response += f"Carbs: {nutrition.get('carbohydrates_g', 0)}g"
             
         if not dish_details and not nutrition:
+            api_key = os.environ.get("GEMINI_API_KEY")
+            if api_key and genai:
+                try:
+                    client = genai.Client(api_key=api_key)
+                    profile_str = f"Allergies: {', '.join(allergies)}" if allergies else "No known allergies"
+                    prompt = (
+                        f"I am looking for information about the food/dish '{food}'.\n"
+                        f"It was not found in my local database. Please act as a food and health safety expert.\n"
+                        f"1. Briefly define what this food is and its likely ingredients.\n"
+                        f"2. Estimate its nutritional value per 100g.\n"
+                        f"3. Perform a safety check against this user profile: {profile_str}\n"
+                        f"Respond clearly and concisely."
+                    )
+                    ai_response = client.models.generate_content(
+                        model='gemini-2.5-flash',
+                        contents=prompt,
+                        config=types.GenerateContentConfig(
+                            temperature=0.3
+                        )
+                    )
+                    if ai_response.text:
+                        return f"From AI Knowledge Base:\n{ai_response.text.strip()}"
+                except Exception as e:
+                    return f"I couldn't find any information about '{food}' locally, and the AI fallback failed (Error: {e}). Please try again later."
             return f"I couldn't find any information about '{food}'."
             
         return response.strip()
