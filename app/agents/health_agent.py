@@ -25,14 +25,25 @@ class HealthAgent:
             medications.extend(parsed["medications"])
         
         # Also parse medical text from context metadata if provided directly
+        # metadata values are already coerced to string in orchestrator, but we check type just in case
         if not conditions and not allergies and not medications:
-            med_text = context.metadata.get("medical_text") or context.metadata.get("report_text")
-            if med_text:
-                parsed = parse_medical_text(med_text)
-                conditions = parsed["conditions"]
-                allergies = parsed["allergies"]
-                medications = parsed["medications"]
-            # No fallback to hardcoded data — return empty profile for real users
+            med_text = context.metadata.get("medical_text")
+            if med_text and isinstance(med_text, str) and med_text.strip():
+                parsed = parse_medical_text(med_text.strip())
+                conditions.extend(parsed.get("conditions", []))
+                allergies.extend(parsed.get("allergies", []))
+                medications.extend(parsed.get("medications", []))
+
+        # Also check for "report_text" if it exists as a fallback (older contexts)
+        if not (conditions or allergies or medications):
+            report_text = context.metadata.get("report_text")
+            if report_text and isinstance(report_text, str) and report_text.strip():
+                parsed = parse_medical_text(report_text.strip())
+                conditions.extend(parsed.get("conditions", []))
+                allergies.extend(parsed.get("allergies", []))
+                medications.extend(parsed.get("medications", []))
+
+        # No fallback to hardcoded data — return empty profile for real users
                 
         conditions = list(set(conditions))
         allergies = list(set(allergies))

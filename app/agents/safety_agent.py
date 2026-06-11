@@ -61,11 +61,25 @@ class SafetyAgent:
             food_risks.append("No direct dish risks identified for the specified destination.")
 
         # Determine overall risk level
-        overall_risk = "Low"
-        if any("[Critical]" in r for r in medical_risks) or any("[High Severity]" in r for r in medical_risks) or len(food_risks) > 3:
+        all_risk_text = " ".join(medical_risks + food_risks).lower()
+
+        if "[critical]" in all_risk_text or "critical severity" in all_risk_text:
             overall_risk = "Critical"
-        elif any("[High]" in r for r in medical_risks) or any("[Medium Severity]" in r for r in medical_risks) or food_risks:
+        elif (
+            "[high]" in all_risk_text
+            or "high severity" in all_risk_text
+            or len([r for r in food_risks if "contains" in r]) >= 3
+        ):
+            overall_risk = "High"
+        elif (
+            "[moderate]" in all_risk_text
+            or "medium severity" in all_risk_text
+            or food_risks[0] != "No specific high-risk dishes identified for your allergen profile at this destination."
+            or medical_risks[0] != "No critical food-drug interactions detected for your medications at this destination."
+        ):
             overall_risk = "Moderate"
+        else:
+            overall_risk = "Low"
 
         # Generate emergency card
         emergency_card = await generate_emergency_card(

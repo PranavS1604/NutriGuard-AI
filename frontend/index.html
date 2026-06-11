@@ -1,2103 +1,339 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NutriGuard AI — Travel Health Copilot</title>
-  <meta name="description"
-    content="AI-powered travel health copilot that keeps you safe abroad. Upload your prescription, detect drug-food interactions, get safe local meal plans, and generate multilingual emergency cards — powered by Gemini." />
+  <meta name="description" content="Upload your prescription, detect dangerous drug-food interactions, and get a safe meal plan for your destination — powered by Gemini." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/static/style.css" />
-  <style>
-    /* ============================================
-   NutriGuard AI — Professional Design System
-   ============================================ */
-
-    :root {
-      --bg-base: #080c14;
-      --bg-surface: #0d1421;
-      --bg-card: #111827;
-      --bg-card-hover: #1a2332;
-      --bg-glass: rgba(17, 24, 39, 0.7);
-
-      --accent-blue: #3b82f6;
-      --accent-cyan: #06b6d4;
-      --accent-purple: #8b5cf6;
-      --accent-green: #10b981;
-      --accent-amber: #f59e0b;
-      --accent-red: #ef4444;
-
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --text-muted: #475569;
-
-      --border: rgba(255, 255, 255, 0.06);
-      --border-accent: rgba(59, 130, 246, 0.3);
-
-      --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-      --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-
-      --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
-      --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.15);
-
-      --transition: 0.2s ease;
-    }
-
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-base);
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ============ NAVBAR ============ */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(8, 12, 20, 0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      transition: var(--transition);
-    }
-
-    .nav-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .nav-logo {
-      font-size: 1.4rem;
-    }
-
-    .accent {
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .nav-badges {
-      display: flex;
-      gap: 8px;
-      margin-left: auto;
-    }
-
-    .tech-badge {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      background: rgba(59, 130, 246, 0.1);
-      color: var(--accent-cyan);
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      letter-spacing: 0.02em;
-    }
-
-    .tech-badge.fivetran {
-      color: #22d3ee;
-      background: rgba(6, 182, 212, 0.1);
-      border-color: rgba(6, 182, 212, 0.2);
-    }
-
-    .tech-badge.gcp {
-      color: #a78bfa;
-      background: rgba(139, 92, 246, 0.1);
-      border-color: rgba(139, 92, 246, 0.2);
-    }
-
-    .btn-ghost {
-      padding: 8px 16px;
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: var(--transition);
-    }
-
-    .btn-ghost:hover {
-      color: var(--text-primary);
-      border-color: var(--border-accent);
-    }
-
-    /* ============ HERO ============ */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      background: var(--gradient-hero);
-      padding: 8rem 2rem 4rem;
-    }
-
-    .hero-bg-grid {
-      position: absolute;
-      inset: 0;
-      background-image: linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
-      background-size: 64px 64px;
-    }
-
-    .hero-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-    }
-
-    .orb-1 {
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.12), transparent 70%);
-      top: -100px;
-      right: -100px;
-      animation: float 8s ease-in-out infinite;
-    }
-
-    .orb-2 {
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
-      bottom: -50px;
-      left: -100px;
-      animation: float 10s ease-in-out infinite reverse;
-    }
-
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0px);
-      }
-
-      50% {
-        transform: translateY(-30px);
-      }
-    }
-
-    .hero-content {
-      position: relative;
-      max-width: 780px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 20px;
-      border-radius: 50px;
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid rgba(59, 130, 246, 0.25);
-      color: var(--accent-cyan);
-      font-size: 0.82rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.03em;
-    }
-
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-green);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-
-      50% {
-        opacity: 0.5;
-        transform: scale(1.4);
-      }
-    }
-
-    .hero-title {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
-      color: var(--text-primary);
-    }
-
-    .gradient-text {
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-desc {
-      font-size: 1.15rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.7;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 3rem;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border-radius: var(--radius-md);
-      background: var(--gradient-primary);
-      color: white;
-      font-weight: 600;
-      font-size: 1rem;
-      border: none;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
-    }
-
-    .btn-shimmer {
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-      animation: shimmer 3s infinite;
-    }
-
-    @keyframes shimmer {
-      0% {
-        left: -100%;
-      }
-
-      100% {
-        left: 200%;
-      }
-    }
-
-    .btn-outline {
-      padding: 14px 28px;
-      border-radius: var(--radius-md);
-      background: transparent;
-      color: var(--text-primary);
-      font-weight: 600;
-      font-size: 1rem;
-      border: 1px solid var(--border-accent);
-      cursor: pointer;
-      text-decoration: none;
-      transition: var(--transition);
-    }
-
-    .btn-outline:hover {
-      background: rgba(59, 130, 246, 0.08);
-    }
-
-    .btn-secondary {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 18px;
-      border-radius: var(--radius-sm);
-      background: rgba(59, 130, 246, 0.1);
-      color: var(--accent-cyan);
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      width: 100%;
-      justify-content: center;
-      transition: var(--transition);
-      margin-bottom: 0.75rem;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(59, 130, 246, 0.2);
-    }
-
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      padding: 0 2rem;
-      text-align: center;
-    }
-
-    .stat-num {
-      display: block;
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--text-primary);
-      letter-spacing: -0.02em;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .stat-divider {
-      width: 1px;
-      height: 40px;
-      background: var(--border);
-    }
-
-    /* ============ ARCH STRIP ============ */
-    .arch-strip {
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-    }
-
-    .arch-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .arch-node {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      padding: 12px 20px;
-      border-radius: var(--radius-md);
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      min-width: 110px;
-      transition: var(--transition);
-    }
-
-    .arch-node.highlight {
-      border-color: var(--border-accent);
-      background: rgba(59, 130, 246, 0.06);
-    }
-
-    .arch-icon {
-      font-size: 1.4rem;
-    }
-
-    .arch-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      text-align: center;
-    }
-
-    .arch-arrow {
-      color: var(--accent-blue);
-      font-size: 1.2rem;
-      font-weight: 300;
-      opacity: 0.6;
-    }
-
-    /* ============ APP SECTION ============ */
-    .app-section {
-      padding: 5rem 2rem;
-      min-height: 100vh;
-    }
-
-    .app-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 440px 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-
-    @media (max-width: 900px) {
-      .app-container {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ============ PANELS ============ */
-    .panel {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 2rem;
-      position: sticky;
-      top: 80px;
-    }
-
-    .results-panel {
-      position: relative;
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .panel-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
-
-    .panel-badge {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--accent-green);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-    }
-
-    /* ============ FORM ============ */
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
-
-    .form-label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .label-icon {
-      font-size: 1rem;
-    }
-
-    .form-input,
-    .form-textarea {
-      width: 100%;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      color: var(--text-primary);
-      font-size: 0.95rem;
-      font-family: inherit;
-      outline: none;
-      transition: var(--transition);
-      resize: vertical;
-    }
-
-    .form-input:focus,
-    .form-textarea:focus {
-      border-color: var(--border-accent);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-
-    .form-hint {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 6px;
-    }
-
-    .dest-info {
-      margin-top: 8px;
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
-      background: rgba(59, 130, 246, 0.08);
-      border: 1px solid rgba(59, 130, 246, 0.15);
-      font-size: 0.82rem;
-      color: var(--accent-cyan);
-    }
-
-    /* ============ FILE UPLOAD DROP ZONE ============ */
-    .upload-section {
-      margin-bottom: 1.25rem;
-    }
-
-    .upload-tabs {
-      display: flex;
-      gap: 4px;
-      background: var(--bg-surface);
-      border-radius: var(--radius-sm);
-      padding: 4px;
-      margin-bottom: 0.75rem;
-      border: 1px solid var(--border);
-    }
-
-    .upload-tab {
-      flex: 1;
-      padding: 7px;
-      border-radius: 6px;
-      background: transparent;
-      color: var(--text-muted);
-      border: none;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 600;
-      transition: var(--transition);
-      font-family: inherit;
-      text-align: center;
-    }
-
-    .upload-tab.active {
-      background: var(--bg-card);
-      color: var(--text-primary);
-    }
-
-    .upload-panel {
-      display: none;
-    }
-
-    .upload-panel.active {
-      display: block;
-    }
-
-    .drop-zone {
-      border: 2px dashed rgba(59, 130, 246, 0.3);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      text-align: center;
-      cursor: pointer;
-      transition: var(--transition);
-      background: rgba(59, 130, 246, 0.03);
-      position: relative;
-    }
-
-    .drop-zone:hover,
-    .drop-zone.drag-over {
-      border-color: var(--accent-blue);
-      background: rgba(59, 130, 246, 0.07);
-    }
-
-    .drop-zone-icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .drop-zone-text {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-bottom: 4px;
-    }
-
-    .drop-zone-hint {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .drop-zone input[type="file"] {
-      display: none;
-    }
-
-    .file-preview {
-      display: none;
-      align-items: center;
-      gap: 0.75rem;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-accent);
-      border-radius: var(--radius-sm);
-      padding: 0.75rem;
-      margin-top: 0.75rem;
-    }
-
-    .preview-img {
-      width: 56px;
-      height: 56px;
-      object-fit: cover;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-    }
-
-    .preview-info {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .preview-filename {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .preview-filesize {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .preview-clear {
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.2);
-      color: #fca5a5;
-      font-size: 0.75rem;
-      cursor: pointer;
-      font-family: inherit;
-      transition: var(--transition);
-    }
-
-    .preview-clear:hover {
-      background: rgba(239, 68, 68, 0.2);
-    }
-
-    .btn-ocr {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-      padding: 10px 18px;
-      border-radius: var(--radius-sm);
-      background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      justify-content: center;
-      transition: var(--transition);
-      margin-top: 0.75rem;
-      font-family: inherit;
-    }
-
-    .btn-ocr:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
-    }
-
-    /* ============ PROFILE PREVIEW ============ */
-    .profile-preview {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .preview-header {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.75rem;
-    }
-
-    .profile-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .chip-condition {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      background: rgba(139, 92, 246, 0.12);
-      color: #a78bfa;
-      border: 1px solid rgba(139, 92, 246, 0.2);
-    }
-
-    .chip-allergy {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      background: rgba(239, 68, 68, 0.12);
-      color: #fca5a5;
-      border: 1px solid rgba(239, 68, 68, 0.2);
-    }
-
-    .chip-medication {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      background: rgba(59, 130, 246, 0.12);
-      color: #93c5fd;
-      border: 1px solid rgba(59, 130, 246, 0.2);
-    }
-
-    .risk-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-top: 8px;
-    }
-
-    .risk-badge.high {
-      background: rgba(239, 68, 68, 0.15);
-      color: #fca5a5;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    .risk-badge.moderate {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fcd34d;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-
-    .risk-badge.low {
-      background: rgba(16, 185, 129, 0.15);
-      color: #6ee7b7;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    /* ============ QUERY ============ */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 1.25rem 0;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .query-row {
-      display: flex;
-      gap: 8px;
-    }
-
-    .btn-icon {
-      padding: 12px 18px;
-      border-radius: var(--radius-sm);
-      background: var(--gradient-primary);
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-size: 1.1rem;
-      transition: var(--transition);
-      flex-shrink: 0;
-    }
-
-    .btn-icon:hover {
-      transform: scale(1.05);
-    }
-
-    .query-result {
-      margin-top: 0.75rem;
-      padding: 1rem;
-      border-radius: var(--radius-sm);
-      background: rgba(6, 182, 212, 0.06);
-      border: 1px solid rgba(6, 182, 212, 0.15);
-      font-size: 0.9rem;
-      color: var(--text-primary);
-      line-height: 1.6;
-      white-space: pre-wrap;
-    }
-
-    /* ============ STATUS BAR ============ */
-    .status-bar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
-      border-radius: var(--radius-sm);
-      background: rgba(59, 130, 246, 0.08);
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      margin-top: 0.75rem;
-      font-size: 0.85rem;
-      color: var(--accent-cyan);
-    }
-
-    .status-spinner {
-      width: 16px;
-      height: 16px;
-      border: 2px solid rgba(59, 130, 246, 0.3);
-      border-top-color: var(--accent-blue);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* ============ TOAST ============ */
-    .toast {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      padding: 12px 20px;
-      border-radius: var(--radius-md);
-      font-size: 0.88rem;
-      font-weight: 500;
-      z-index: 9999;
-      transform: translateY(20px);
-      opacity: 0;
-      transition: all 0.3s ease;
-      max-width: 380px;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .toast-success {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #6ee7b7;
-    }
-
-    .toast-error {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #fca5a5;
-    }
-
-    .toast-info {
-      background: rgba(59, 130, 246, 0.15);
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      color: var(--accent-cyan);
-    }
-
-    /* ============ EMPTY STATE ============ */
-    .empty-state {
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-
-    .empty-icon {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-      opacity: 0.5;
-    }
-
-    .empty-state h3 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      color: var(--text-secondary);
-    }
-
-    .empty-state p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .feature-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-    }
-
-    .chip {
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-    }
-
-    /* ============ RISK HEADER ============ */
-    .risk-header {
-      padding: 1.25rem 1.5rem;
-      border-radius: var(--radius-md);
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .risk-header.critical {
-      background: rgba(239, 68, 68, 0.08);
-      border: 1px solid rgba(239, 68, 68, 0.25);
-    }
-
-    .risk-header.moderate {
-      background: rgba(245, 158, 11, 0.08);
-      border: 1px solid rgba(245, 158, 11, 0.25);
-    }
-
-    .risk-header.low {
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-    }
-
-    .risk-label {
-      font-weight: 700;
-      font-size: 1.05rem;
-    }
-
-    .risk-header.critical .risk-label {
-      color: #fca5a5;
-    }
-
-    .risk-header.moderate .risk-label {
-      color: #fcd34d;
-    }
-
-    .risk-header.low .risk-label {
-      color: #6ee7b7;
-    }
-
-    .risk-meta {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    /* ============ TABS ============ */
-    .tabs {
-      display: flex;
-      gap: 4px;
-      background: var(--bg-surface);
-      padding: 5px;
-      border-radius: var(--radius-md);
-      margin-bottom: 1.25rem;
-      border: 1px solid var(--border);
-      overflow-x: auto;
-    }
-
-    .tab {
-      padding: 8px 14px;
-      border-radius: var(--radius-sm);
-      background: transparent;
-      color: var(--text-muted);
-      border: none;
-      cursor: pointer;
-      font-size: 0.82rem;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: var(--transition);
-      font-family: inherit;
-    }
-
-    .tab:hover {
-      color: var(--text-secondary);
-    }
-
-    .tab.active {
-      background: var(--bg-card);
-      color: var(--text-primary);
-      box-shadow: var(--shadow-md);
-    }
-
-    /* ============ TAB CONTENT ============ */
-    .tab-content {
-      animation: fadeIn 0.25s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(6px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Health Tab */
-    .health-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .health-col {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1rem;
-    }
-
-    .health-col-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .health-item {
-      padding: 4px 0;
-      font-size: 0.88rem;
-      color: var(--text-primary);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .health-summary {
-      padding: 0.75rem 1rem;
-      background: var(--bg-surface);
-      border-radius: var(--radius-sm);
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      border: 1px solid var(--border);
-    }
-
-    /* Meals Tab */
-    .meal-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.1rem 1.25rem;
-      margin-bottom: 0.75rem;
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      transition: var(--transition);
-    }
-
-    .meal-card:hover {
-      border-color: var(--border-accent);
-    }
-
-    .meal-num {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(59, 130, 246, 0.15);
-      color: var(--accent-cyan);
-      font-size: 0.8rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .meal-text {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    /* Risks Tab */
-    .risk-item {
-      padding: 1rem 1.25rem;
-      border-radius: var(--radius-md);
-      margin-bottom: 0.75rem;
-      border-left: 3px solid;
-    }
-
-    .risk-item.critical {
-      background: rgba(239, 68, 68, 0.07);
-      border-color: #ef4444;
-    }
-
-    .risk-item.high {
-      background: rgba(245, 158, 11, 0.07);
-      border-color: #f59e0b;
-    }
-
-    .risk-item.normal {
-      background: rgba(71, 85, 105, 0.15);
-      border-color: #475569;
-    }
-
-    .risk-item-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 4px;
-    }
-
-    .risk-item.critical .risk-item-label {
-      color: #fca5a5;
-    }
-
-    .risk-item.high .risk-item-label {
-      color: #fcd34d;
-    }
-
-    .risk-item.normal .risk-item-label {
-      color: var(--text-muted);
-    }
-
-    .risk-item-text {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .actions-list {
-      list-style: none;
-    }
-
-    .action-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-    }
-
-    .action-bullet {
-      color: var(--accent-green);
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    /* Card Tab */
-    .waiter-card {
-      background: linear-gradient(135deg, #0d1421, #111827);
-      border: 2px solid var(--border-accent);
-      border-radius: var(--radius-xl);
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .waiter-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gradient-primary);
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .card-logo {
-      font-size: 2rem;
-    }
-
-    .card-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .card-subtitle {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .card-section {
-      margin-bottom: 1.25rem;
-    }
-
-    .card-section-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .card-section-value {
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .card-translation {
-      background: rgba(59, 130, 246, 0.06);
-      border: 1px solid rgba(59, 130, 246, 0.15);
-      border-radius: var(--radius-md);
-      padding: 1rem;
-      margin-top: 1rem;
-    }
-
-    .translation-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--accent-cyan);
-      margin-bottom: 6px;
-    }
-
-    .translation-text {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      font-style: italic;
-      white-space: pre-wrap;
-    }
-
-    .card-url {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 1rem;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* Hospitals Tab */
-    .hospital-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.25rem;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      margin-bottom: 0.75rem;
-      transition: var(--transition);
-    }
-
-    .hospital-card:hover {
-      border-color: var(--border-accent);
-    }
-
-    .hospital-num {
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-sm);
-      background: rgba(59, 130, 246, 0.12);
-      color: var(--accent-blue);
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .hospital-name {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .hospital-meta {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    /* ============ FULL-WIDTH BUTTON ============ */
-    .full-width {
-      width: 100%;
-      justify-content: center;
-      margin-bottom: 0.75rem;
-    }
-
-    /* ============ PIPELINE SECTION ============ */
-    .pipeline-section {
-      padding: 5rem 2rem;
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .section-badge {
-      display: inline-block;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      background: rgba(6, 182, 212, 0.1);
-      color: var(--accent-cyan);
-      border: 1px solid rgba(6, 182, 212, 0.2);
-      margin-bottom: 1rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      font-weight: 800;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.02em;
-    }
-
-    .section-desc {
-      color: var(--text-secondary);
-      font-size: 1rem;
-    }
-
-    .pipeline-visual {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      flex-wrap: wrap;
-      margin-bottom: 3rem;
-    }
-
-    .pipe-node {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem 1.25rem;
-      text-align: center;
-      min-width: 130px;
-      transition: var(--transition);
-    }
-
-    .pipe-node:hover {
-      border-color: var(--border-accent);
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-glow);
-    }
-
-    .pipe-node.transform {
-      border-color: rgba(6, 182, 212, 0.3);
-      background: rgba(6, 182, 212, 0.05);
-    }
-
-    .pipe-icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .pipe-label {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .pipe-sub {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .pipe-status {
-      font-size: 0.72rem;
-      font-weight: 700;
-      margin-top: 8px;
-    }
-
-    .pipe-status.active {
-      color: var(--accent-green);
-    }
-
-    .pipe-status.ready {
-      color: var(--accent-amber);
-    }
-
-    .pipe-connector {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 0.5rem;
-      gap: 4px;
-    }
-
-    .pipe-flow {
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
-      position: relative;
-      border-radius: 2px;
-    }
-
-    .pipe-flow::after {
-      content: '';
-      position: absolute;
-      right: -6px;
-      top: -4px;
-      border-left: 8px solid var(--accent-cyan);
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
-    }
-
-    .pipe-label-mid {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
-    /* Price Cards */
-    .price-cards {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .price-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1rem 1.25rem;
-      min-width: 160px;
-      text-align: center;
-      transition: var(--transition);
-    }
-
-    .price-card:hover {
-      border-color: var(--border-accent);
-    }
-
-    .price-commodity {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 4px;
-    }
-
-    .price-value {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 4px;
-    }
-
-    .price-trend {
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-
-    .price-trend.up {
-      color: var(--accent-green);
-    }
-
-    .price-trend.down {
-      color: var(--accent-red);
-    }
-
-    .price-trend.stable {
-      color: var(--text-muted);
-    }
-
-    .loading-bar {
-      width: 100%;
-      height: 80px;
-      background: linear-gradient(90deg, var(--bg-card) 0%, rgba(59, 130, 246, 0.08) 50%, var(--bg-card) 100%);
-      border-radius: var(--radius-md);
-      background-size: 200% 100%;
-      animation: skeleton 1.5s infinite;
-    }
-
-    @keyframes skeleton {
-      0% {
-        background-position: 200% 0;
-      }
-
-      100% {
-        background-position: -200% 0;
-      }
-    }
-
-    /* ============ FEATURES SECTION ============ */
-    .features-section {
-      padding: 5rem 2rem;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .feature-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.75rem;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.4), transparent);
-      opacity: 0;
-      transition: var(--transition);
-    }
-
-    .feature-card:hover {
-      border-color: var(--border-accent);
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-glow);
-    }
-
-    .feature-card:hover::before {
-      opacity: 1;
-    }
-
-    .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .feature-card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: var(--text-primary);
-    }
-
-    .feature-card p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 0.75rem;
-    }
-
-    .feature-example {
-      padding: 6px 12px;
-      border-radius: var(--radius-sm);
-      background: rgba(239, 68, 68, 0.08);
-      border: 1px solid rgba(239, 68, 68, 0.15);
-      font-size: 0.78rem;
-      color: #fca5a5;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* ============ FOOTER ============ */
-    .footer {
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-    }
-
-    .footer-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .footer-info {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .footer-link {
-      color: var(--accent-cyan);
-      text-decoration: none;
-    }
-
-    .footer-link:hover {
-      text-decoration: underline;
-    }
-
-    .divider-dot {
-      opacity: 0.4;
-    }
-
-    .footer-tech {
-      display: flex;
-      gap: 8px;
-    }
-
-    .tech-chip {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-    }
-
-    /* ============ SCROLLBAR ============ */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-base);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #334155;
-      border-radius: 3px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
-    }
-  </style>
 </head>
-
 <body>
 
-  <!-- NAV -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <div class="nav-brand">
-        <span class="nav-logo">🛡️</span>
-        <span class="nav-title">NutriGuard <span class="accent">AI</span></span>
-      </div>
-      <div class="nav-badges">
-        <span class="tech-badge">Gemini 2.5</span>
-        <span class="tech-badge fivetran">Fivetran</span>
-        <span class="tech-badge gcp">Google Cloud</span>
-      </div>
-      <a href="/api/docs" target="_blank" class="btn-ghost">API Docs →</a>
+<!-- NAV -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <span class="nav-logo">🛡️</span>
+      <span>NutriGuard <span class="accent">AI</span></span>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-orb orb-1"></div>
-    <div class="hero-orb orb-2"></div>
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="pulse-dot"></span>
-        Multi-Agent AI · Google Cloud Agent Builder
-      </div>
-      <h1 class="hero-title">
-        Your Intelligent<br />
-        <span class="gradient-text">Travel Health Copilot</span>
-      </h1>
-      <p class="hero-desc">
-        Upload your prescription or medical report. Choose your destination. NutriGuard AI orchestrates 4 specialized
-        agents to detect dangerous drug-food interactions, curate safe local meals, and generate a multilingual
-        emergency card — powered by Gemini.
-      </p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="scrollToApp()">
-          Start Mission <span>→</span>
-          <div class="btn-shimmer"></div>
-        </button>
-        <a href="https://github.com" target="_blank" class="btn-outline">View on GitHub</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num">10K+</span><span class="stat-label">Drug Interactions</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num">179</span><span class="stat-label">Cuisine Dishes</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num">4</span><span class="stat-label">AI Agents</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Destinations</span></div>
-      </div>
+    <div class="nav-badges">
+      <span class="tech-badge">Gemini 2.5</span>
+      <span class="tech-badge fivetran">Fivetran</span>
+      <span class="tech-badge gcp">Google Cloud</span>
     </div>
-  </section>
+    <a href="/api/docs" target="_blank" class="btn-ghost">API Docs →</a>
+  </div>
+</nav>
 
-  <!-- ARCHITECTURE STRIP -->
-  <section class="arch-strip">
-    <div class="arch-container">
-      <div class="arch-node">
-        <div class="arch-icon">📄</div>
-        <div class="arch-label">Medical Report</div>
-      </div>
-      <div class="arch-arrow">→</div>
-      <div class="arch-node highlight">
-        <div class="arch-icon">👁️</div>
-        <div class="arch-label">Gemini OCR</div>
-      </div>
-      <div class="arch-arrow">→</div>
-      <div class="arch-node highlight">
-        <div class="arch-icon">🤖</div>
-        <div class="arch-label">4 AI Agents</div>
-      </div>
-      <div class="arch-arrow">→</div>
-      <div class="arch-node highlight">
-        <div class="arch-icon">⚡</div>
-        <div class="arch-label">Fivetran Pipeline</div>
-      </div>
-      <div class="arch-arrow">→</div>
-      <div class="arch-node">
-        <div class="arch-icon">🛡️</div>
-        <div class="arch-label">Health Report</div>
-      </div>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse-dot"></span>
+      Multi-Agent AI · Google Cloud Agent Builder
     </div>
-  </section>
+    <h1 class="hero-title">
+      Your Intelligent<br />
+      <span class="gradient-text">Travel Health Copilot</span>
+    </h1>
+    <p class="hero-desc">
+      Upload your prescription. Choose your destination. Four specialised AI agents detect dangerous drug-food interactions, curate safe local meals, and generate a multilingual emergency card — powered by Gemini 2.5.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="scrollToApp()">
+        Start Mission <span>→</span>
+        <div class="btn-shimmer"></div>
+      </button>
+      <a href="https://github.com" target="_blank" class="btn-outline">View on GitHub</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">10K+</span><span class="stat-label">Drug Interactions</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">179</span><span class="stat-label">Cuisine Dishes</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">4</span><span class="stat-label">AI Agents</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">120+</span><span class="stat-label">Destinations</span></div>
+    </div>
+  </div>
+</section>
 
-  <!-- MAIN APP -->
-  <section class="app-section" id="app">
-    <div class="app-container">
+<!-- ARCHITECTURE STRIP -->
+<section class="arch-strip">
+  <div class="arch-container">
+    <div class="arch-node"><div class="arch-icon">📄</div><div class="arch-label">Medical Report</div></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node highlight"><div class="arch-icon">👁️</div><div class="arch-label">Gemini OCR</div></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node highlight"><div class="arch-icon">🤖</div><div class="arch-label">4 AI Agents</div></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node highlight"><div class="arch-icon">⚡</div><div class="arch-label">Fivetran Pipeline</div></div>
+    <div class="arch-arrow">→</div>
+    <div class="arch-node"><div class="arch-icon">🛡️</div><div class="arch-label">Health Report</div></div>
+  </div>
+</section>
 
-      <!-- LEFT: INPUT PANEL -->
-      <div class="panel input-panel">
-        <div class="panel-header">
-          <h2 class="panel-title">Mission Configuration</h2>
-          <div class="panel-badge">Powered by Gemini</div>
+<!-- MAIN APP -->
+<section class="app-section" id="app">
+  <div class="app-container">
+
+    <!-- LEFT: INPUT PANEL -->
+    <div class="panel input-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Mission Configuration</h2>
+        <div class="panel-badge">Powered by Gemini</div>
+      </div>
+
+      <!-- Destination -->
+      <div class="form-group">
+        <label class="form-label"><span class="label-icon">🗺️</span> Destination</label>
+        <input type="text" id="destination" class="form-input"
+               placeholder="Tokyo, Paris, Bangkok, Mumbai, Dubai…"
+               oninput="onDestInput()" autocomplete="off" />
+        <div id="destInfo" class="dest-info" style="display:none;"></div>
+        <div class="form-hint">120+ destinations. Unknown cities resolved by Gemini AI.</div>
+      </div>
+
+      <!-- Medical Report -->
+      <div class="upload-section">
+        <label class="form-label"><span class="label-icon">🏥</span> Medical Report / Prescription</label>
+
+        <!-- Tab switcher -->
+        <div class="upload-tabs">
+          <button class="upload-tab active" id="tabUpload"  onclick="switchInputTab('upload')">📁 Upload File</button>
+          <button class="upload-tab"        id="tabText"    onclick="switchInputTab('text')">✏️ Paste Text</button>
         </div>
 
-        <!-- Destination -->
-        <div class="form-group">
-          <label class="form-label">
-            <span class="label-icon">🗺️</span> Destination
-          </label>
-          <input type="text" id="destination" class="form-input" placeholder="Tokyo, Paris, Bangkok, Mumbai, Dubai..."
-            value="" />
-          <div id="destInfo" class="dest-info" style="display:none;"></div>
-          <div class="form-hint">100+ destinations supported. Unknown cities resolved by Gemini AI.</div>
+        <!-- Upload panel -->
+        <div id="panelUpload">
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-icon">📤</div>
+            <div class="drop-zone-text">Drop your medical report here</div>
+            <div class="drop-zone-hint">JPG, PNG, WEBP, PDF · Max 10 MB</div>
+            <input type="file" id="medicalFile"
+                   accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,.jpg,.jpeg,.png,.webp,.pdf" />
+          </div>
+
+          <!-- File preview -->
+          <div class="file-preview" id="filePreview" style="display:none;">
+            <img class="preview-img" id="previewImg" src="" alt="Preview" style="display:none;" />
+            <div class="preview-info">
+              <div class="preview-filename" id="previewFileName">filename.jpg</div>
+              <div class="preview-filesize" id="previewFileSize">0 KB</div>
+            </div>
+            <button class="preview-clear" onclick="clearFile()">✕ Remove</button>
+          </div>
+
+          <!-- OCR button (shown after file selected) -->
+          <button class="btn-ocr" id="ocrBtn" style="display:none;" onclick="uploadAndOCR()">
+            <span>👁️</span> Run Gemini Vision OCR
+          </button>
+
+          <!-- OCR status message -->
+          <div id="ocrStatus" class="ocr-status" style="display:none;"></div>
         </div>
 
-        <!-- Medical Report Input (with upload + text tabs) -->
-        <div class="upload-section">
-          <label class="form-label">
-            <span class="label-icon">🏥</span> Medical Report / Prescription
-          </label>
-
-          <!-- Tabs -->
-          <div class="upload-tabs">
-            <button class="upload-tab active" id="tabUpload" onclick="switchInputTab('upload')">📁 Upload File</button>
-            <button class="upload-tab" id="tabText" onclick="switchInputTab('text')">✏️ Paste Text</button>
-          </div>
-
-          <!-- Upload Panel -->
-          <div class="upload-panel active" id="panelUpload">
-            <div class="drop-zone" id="dropZone">
-              <div class="drop-zone-icon">📤</div>
-              <div class="drop-zone-text">Drop your medical report here</div>
-              <div class="drop-zone-hint">Supports JPG, PNG, WEBP, PDF · Max 10MB</div>
-              <input type="file" id="medicalFile"
-                accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,.jpg,.jpeg,.png,.webp,.pdf" />
-            </div>
-
-            <!-- File Preview -->
-            <div class="file-preview" id="filePreview">
-              <img class="preview-img" id="previewImg" src="" alt="Preview" style="display:none;" />
-              <div class="preview-info">
-                <div class="preview-filename" id="previewFileName">filename.jpg</div>
-                <div class="preview-filesize" id="previewFileSize">0 KB</div>
-              </div>
-              <button class="preview-clear" onclick="clearFile()">✕ Remove</button>
-            </div>
-
-            <!-- OCR Button -->
-            <button class="btn-ocr" id="ocrBtn" onclick="uploadAndOCR()">
-              <span>👁️</span> Run Gemini Vision OCR
-            </button>
-          </div>
-
-          <!-- Text Panel -->
-          <div class="upload-panel" id="panelText">
-            <textarea id="medicalText" class="form-textarea" rows="6" placeholder="Paste your medical report text, or describe your health conditions and medications...
+        <!-- Text panel (hidden initially) -->
+        <div id="panelText" style="display:none;">
+          <textarea id="medicalText" class="form-textarea" rows="6"
+            placeholder="Paste medical report text, or describe your conditions and medications…
 
 Example:
 Patient has DIABETES and HIGH CHOLESTEROL.
 Allergies: SEVERE PEANUT ALLERGY.
 Medications: Metformin 500mg, Warfarin 5mg daily."></textarea>
-            <div class="form-hint">Gemini AI will extract conditions, allergies &amp; medications automatically</div>
-          </div>
-        </div>
-
-        <!-- Parse Button (shows only in text tab) -->
-        <button class="btn-secondary" id="parseBtn" onclick="parseMedical()" style="display:none;">
-          <span>🔍</span> Parse Medical Profile
-        </button>
-
-        <!-- Parsed Profile Preview -->
-        <div id="profilePreview" class="profile-preview" style="display:none;">
-          <div class="preview-header">Extracted Health Profile</div>
-          <div id="profileContent"></div>
-        </div>
-
-        <!-- Mission Button -->
-        <button class="btn-primary full-width" id="missionBtn" onclick="runMission()">
-          🚀 Run Full Mission
-          <div class="btn-shimmer"></div>
-        </button>
-
-        <!-- Status Bar -->
-        <div id="statusBar" class="status-bar" style="display:none;">
-          <div class="status-spinner"></div>
-          <span id="statusText">Initializing agents...</span>
-        </div>
-
-        <!-- Query Agent -->
-        <div class="divider"><span>or ask a question</span></div>
-
-        <div class="query-row">
-          <input type="text" id="queryInput" class="form-input" placeholder="Can I eat sushi in Tokyo?" />
-          <button class="btn-icon" id="queryBtn" onclick="runQuery()" title="Ask">→</button>
-        </div>
-        <div id="queryResult" class="query-result" style="display:none;"></div>
-      </div>
-
-      <!-- RIGHT: RESULTS PANEL -->
-      <div class="panel results-panel" id="resultsPanel">
-        <!-- Empty State -->
-        <div class="empty-state" id="emptyState">
-          <div class="empty-icon">🌍</div>
-          <h3>Your Mission Results Appear Here</h3>
-          <p>Configure your health profile and destination, then click <strong>Run Full Mission</strong> to get a
-            personalized travel health report.</p>
-          <div class="feature-chips">
-            <span class="chip">💊 Drug-Cuisine Engine</span>
-            <span class="chip">🍽️ Safe Meal Plan</span>
-            <span class="chip">🌐 Waiter Card</span>
-            <span class="chip">🏥 Hospitals</span>
-          </div>
-        </div>
-
-        <!-- Results (hidden until mission runs) -->
-        <div id="missionResults" style="display:none;">
-
-          <!-- Risk Header -->
-          <div id="riskHeader" class="risk-header"></div>
-
-          <!-- Tabs -->
-          <div class="tabs">
-            <button class="tab active" onclick="showTab('health', this)">🏥 Health</button>
-            <button class="tab" onclick="showTab('meals', this)">🍽️ Meals</button>
-            <button class="tab" onclick="showTab('risks', this)">⚠️ Risks</button>
-            <button class="tab" onclick="showTab('card', this)">🌐 Card</button>
-            <button class="tab" onclick="showTab('hospitals', this)">🏨 Hospitals</button>
-          </div>
-
-          <div class="tab-content" id="tab-health"></div>
-          <div class="tab-content" id="tab-meals" style="display:none;"></div>
-          <div class="tab-content" id="tab-risks" style="display:none;"></div>
-          <div class="tab-content" id="tab-card" style="display:none;"></div>
-          <div class="tab-content" id="tab-hospitals" style="display:none;"></div>
-
+          <div class="form-hint">Gemini AI will extract conditions, allergies &amp; medications automatically.</div>
         </div>
       </div>
 
+      <!-- Parse button (text tab only) -->
+      <button class="btn-secondary" id="parseBtn" onclick="parseMedical()" style="display:none;">
+        <span>🔍</span> Extract Medical Profile
+      </button>
+
+      <!-- Profile preview -->
+      <div id="profilePreview" class="profile-preview" style="display:none;">
+        <div class="preview-header">Extracted Health Profile</div>
+        <div id="profileContent"></div>
+      </div>
+
+      <!-- Mission button -->
+      <button class="btn-primary full-width" id="missionBtn" onclick="runMission()">
+        <span class="btn-label">🚀 Run Full Mission</span>
+        <div class="btn-shimmer"></div>
+      </button>
+
+      <!-- Status bar -->
+      <div id="statusBar" class="status-bar" style="display:none;">
+        <div class="status-spinner"></div>
+        <span id="statusText">Initialising…</span>
+      </div>
+
+      <!-- Query agent -->
+      <div class="divider"><span>or ask anything</span></div>
+      <div class="query-row">
+        <input type="text" id="queryInput" class="form-input"
+               placeholder="Can I eat sushi in Tokyo?" />
+        <button class="btn-icon" id="queryBtn" onclick="runQuery()" title="Ask">→</button>
+      </div>
+      <div id="queryResult" class="query-result" style="display:none;"></div>
     </div>
-  </section>
 
-  <!-- PIPELINE SECTION -->
-  <section class="pipeline-section" id="pipeline">
-    <div class="section-container">
-      <div class="section-header">
-        <div class="section-badge">Fivetran Partner Integration</div>
-        <h2 class="section-title">Live Data Pipeline</h2>
-        <p class="section-desc">Real-time agricultural price intelligence powered by Fivetran → BigQuery</p>
-      </div>
-      <div class="pipeline-visual">
-        <div class="pipe-node source">
-          <div class="pipe-icon">🌾</div>
-          <div class="pipe-label">Agmarknet API</div>
-          <div class="pipe-sub">Live prices</div>
-          <div class="pipe-status active">● Live</div>
-        </div>
-        <div class="pipe-connector">
-          <div class="pipe-flow"></div>
-          <div class="pipe-label-mid">Fivetran Connector</div>
-        </div>
-        <div class="pipe-node transform">
-          <div class="pipe-icon">⚡</div>
-          <div class="pipe-label">Fivetran</div>
-          <div class="pipe-sub">ELT Pipeline</div>
-          <div class="pipe-status active">● Syncing</div>
-        </div>
-        <div class="pipe-connector">
-          <div class="pipe-flow"></div>
-          <div class="pipe-label-mid">→ BigQuery</div>
-        </div>
-        <div class="pipe-node destination">
-          <div class="pipe-icon">🗄️</div>
-          <div class="pipe-label">BigQuery</div>
-          <div class="pipe-sub">nutriguard_ai</div>
-          <div class="pipe-status ready">● Ready</div>
-        </div>
-        <div class="pipe-connector">
-          <div class="pipe-flow"></div>
-          <div class="pipe-label-mid">Agent Query</div>
-        </div>
-        <div class="pipe-node agent">
-          <div class="pipe-icon">🤖</div>
-          <div class="pipe-label">NutriGuard AI</div>
-          <div class="pipe-sub">Agent Intelligence</div>
-          <div class="pipe-status active">● Active</div>
+    <!-- RIGHT: RESULTS PANEL -->
+    <div class="panel results-panel" id="resultsPanel">
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">🌍</div>
+        <h3>Your Mission Results Appear Here</h3>
+        <p>Set your destination and health profile, then click <strong>Run Full Mission</strong> for a personalised travel health report.</p>
+        <div class="feature-chips">
+          <span class="chip">💊 Drug-Cuisine Engine</span>
+          <span class="chip">🍽️ Safe Meal Plan</span>
+          <span class="chip">🌐 Waiter Card</span>
+          <span class="chip">🏥 Hospitals</span>
         </div>
       </div>
-      <!-- Live Price Cards -->
-      <div id="priceCards" class="price-cards">
-        <div class="loading-bar"></div>
+
+      <!-- Results -->
+      <div id="missionResults" style="display:none;">
+        <div id="riskHeader" class="risk-header"></div>
+
+        <div class="tabs">
+          <button class="tab active" onclick="showTab('health', this)">🏥 Health</button>
+          <button class="tab"        onclick="showTab('meals',  this)">🍽️ Meals</button>
+          <button class="tab"        onclick="showTab('risks',  this)">⚠️ Risks</button>
+          <button class="tab"        onclick="showTab('card',   this)">🌐 Card</button>
+          <button class="tab"        onclick="showTab('hospitals', this)">🏨 Hospitals</button>
+        </div>
+
+        <div class="tab-content"                  id="tab-health"></div>
+        <div class="tab-content" style="display:none;" id="tab-meals"></div>
+        <div class="tab-content" style="display:none;" id="tab-risks"></div>
+        <div class="tab-content" style="display:none;" id="tab-card"></div>
+        <div class="tab-content" style="display:none;" id="tab-hospitals"></div>
       </div>
     </div>
-  </section>
 
-  <!-- FEATURES SECTION -->
-  <section class="features-section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">Built for Real-World Impact</h2>
+  </div>
+</section>
+
+<!-- PIPELINE SECTION -->
+<section class="pipeline-section" id="pipeline">
+  <div class="section-container">
+    <div class="section-header">
+      <div class="section-badge">Fivetran Partner Integration</div>
+      <h2 class="section-title">Live Data Pipeline</h2>
+      <p class="section-desc">Real-time agricultural price intelligence: Agmarknet → Fivetran → BigQuery → Agents</p>
+    </div>
+    <div class="pipeline-visual">
+      <div class="pipe-node">
+        <div class="pipe-icon">🌾</div>
+        <div class="pipe-label">Agmarknet API</div>
+        <div class="pipe-sub">Live commodity prices</div>
+        <div class="pipe-status active">● Live</div>
       </div>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">👁️</div>
-          <h3>Gemini Vision OCR</h3>
-          <p>Upload a photo or PDF of your prescription. Gemini Vision extracts conditions, allergies, and medications
-            with structured output — no manual typing required.</p>
-          <div class="feature-example">Upload image → Gemini OCR → Structured Profile</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">💊</div>
-          <h3>Medication ↔ Cuisine Engine</h3>
-          <p>Detects <strong>Warfarin + Natto</strong>, <strong>Statins + Grapefruit</strong>, <strong>Metformin +
-              Sake</strong> — clinical interactions specific to your destination cuisine.</p>
-          <div class="feature-example">Warfarin → Japan → Avoid Natto (Critical)</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌐</div>
-          <h3>Multilingual Waiter Card</h3>
-          <p>Gemini translates your exact medical profile into the destination language — Japanese, French, Thai, Korean
-            — to show waiters and doctors.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🗺️</div>
-          <h3>Live Hospital Finder</h3>
-          <p>Google Maps API locates the nearest hospitals and pharmacies within 15km of your destination, updated in
-            real-time. Set GOOGLE_MAPS_API_KEY to enable.</p>
-        </div>
+      <div class="pipe-connector">
+        <div class="pipe-flow"></div>
+        <div class="pipe-label-mid">Fivetran Connector</div>
+      </div>
+      <div class="pipe-node transform">
+        <div class="pipe-icon">⚡</div>
+        <div class="pipe-label">Fivetran</div>
+        <div class="pipe-sub">ELT Pipeline</div>
+        <div class="pipe-status active">● Syncing</div>
+      </div>
+      <div class="pipe-connector">
+        <div class="pipe-flow"></div>
+        <div class="pipe-label-mid">→ BigQuery</div>
+      </div>
+      <div class="pipe-node">
+        <div class="pipe-icon">🗄️</div>
+        <div class="pipe-label">BigQuery</div>
+        <div class="pipe-sub">nutriguard_ai dataset</div>
+        <div class="pipe-status ready">● Ready</div>
+      </div>
+      <div class="pipe-connector">
+        <div class="pipe-flow"></div>
+        <div class="pipe-label-mid">Agent Query</div>
+      </div>
+      <div class="pipe-node">
+        <div class="pipe-icon">🤖</div>
+        <div class="pipe-label">NutriGuard AI</div>
+        <div class="pipe-sub">Price-aware agents</div>
+        <div class="pipe-status active">● Active</div>
       </div>
     </div>
-  </section>
+    <div id="priceCards" class="price-cards">
+      <div class="loading-bar"></div>
+    </div>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-brand">
-        <span class="nav-logo">🛡️</span>
-        <span class="nav-title">NutriGuard <span class="accent">AI</span></span>
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Built for Real-World Impact</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">👁️</div>
+        <h3>Gemini Vision OCR</h3>
+        <p>Upload a photo or PDF of your prescription. Gemini Vision extracts conditions, allergies, and medications with structured JSON output — no manual typing.</p>
+        <div class="feature-example">Upload image → Gemini OCR → Structured Profile</div>
       </div>
-      <div class="footer-info">
-        <span>Google Cloud Rapid Agent Hackathon 2026</span>
-        <span class="divider-dot">·</span>
-        <span>Fivetran Partner Track</span>
-        <span class="divider-dot">·</span>
-        <a href="/api/docs" class="footer-link">API Reference</a>
+      <div class="feature-card">
+        <div class="feature-icon">💊</div>
+        <h3>Medication ↔ Cuisine Engine</h3>
+        <p>Detects <strong>Warfarin + Natto</strong>, <strong>Statins + Grapefruit</strong>, <strong>Metformin + Sake</strong> — clinically validated interactions specific to your destination cuisine.</p>
+        <div class="feature-example">Warfarin + Japan → Avoid Natto [Critical]</div>
       </div>
-      <div class="footer-tech">
-        <span class="tech-chip">Gemini 2.5 Flash</span>
-        <span class="tech-chip">Cloud Run</span>
-        <span class="tech-chip">Fivetran</span>
-        <span class="tech-chip">BigQuery</span>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>Multilingual Waiter Card</h3>
+        <p>Gemini translates your exact medical profile into Japanese, French, Thai, Korean, Arabic — to show waiters and doctors in the local language.</p>
+        <div class="feature-example">Show to waiter in local language</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗺️</div>
+        <h3>Live Hospital Finder</h3>
+        <p>Google Maps API locates the nearest hospitals and pharmacies within 15 km of your destination in real time. Set GOOGLE_MAPS_API_KEY to enable.</p>
+        <div class="feature-example">Nearest hospital in Bangkok →</div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script>
-    // Upload tab switcher
-    function switchInputTab(tab) {
-      const uploadPanel = document.getElementById('panelUpload');
-      const textPanel = document.getElementById('panelText');
-      const tabUpload = document.getElementById('tabUpload');
-      const tabText = document.getElementById('tabText');
-      const parseBtn = document.getElementById('parseBtn');
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="nav-brand">
+      <span class="nav-logo">🛡️</span>
+      <span>NutriGuard <span class="accent">AI</span></span>
+    </div>
+    <div class="footer-info">
+      <span>Google Cloud Rapid Agent Hackathon 2026</span>
+      <span class="divider-dot">·</span>
+      <span>Fivetran Partner Track</span>
+      <span class="divider-dot">·</span>
+      <a href="/api/docs" class="footer-link">API Reference</a>
+    </div>
+    <div class="footer-tech">
+      <span class="tech-chip">Gemini 2.5 Flash</span>
+      <span class="tech-chip">Cloud Run</span>
+      <span class="tech-chip">Fivetran</span>
+      <span class="tech-chip">BigQuery</span>
+    </div>
+  </div>
+</footer>
 
-      if (tab === 'upload') {
-        uploadPanel.classList.add('active');
-        textPanel.classList.remove('active');
-        tabUpload.classList.add('active');
-        tabText.classList.remove('active');
-        parseBtn.style.display = 'none';
-      } else {
-        uploadPanel.classList.remove('active');
-        textPanel.classList.add('active');
-        tabUpload.classList.remove('active');
-        tabText.classList.add('active');
-        parseBtn.style.display = 'flex';
-      }
-    }
-  </script>
-  <script src="/static/app.js"></script>
+<script src="/static/app.js"></script>
 </body>
-
 </html>

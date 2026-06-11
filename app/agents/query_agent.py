@@ -34,8 +34,13 @@ class QueryAgent:
             return QueryIntent(action="maps_search", food=None, location=location, place_type=place_type)
         else:
             match = re.search(r'(?:eat|avoid)\s+(.+?)\s+(?:in|at)\s+(.+?)(?:\?|$)', query, re.IGNORECASE)
-            food = match.group(1).strip() if match else query.replace("?", "").strip()
-            location = match.group(2).strip() if match else None
+            if match:
+                food = match.group(1).strip()
+                location = match.group(2).strip()
+            else:
+                match_no_loc = re.search(r'(?:eat|avoid)\s+(.+?)(?:\?|$)', query, re.IGNORECASE)
+                food = match_no_loc.group(1).strip() if match_no_loc else query.replace("?", "").strip()
+                location = None
             return QueryIntent(action="safety_check", food=food, location=location, place_type=None)
 
     def _parse_query(self, query: str) -> QueryIntent:
@@ -155,7 +160,9 @@ class QueryAgent:
                     if ai_response.text:
                         return f"From AI Knowledge Base:\n{ai_response.text.strip()}"
                 except Exception as e:
-                    return f"I couldn't find any information about '{food}' locally, and the AI fallback failed (Error: {e}). Please try again later."
+                    if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                        return f"I couldn't find any information about '{food}' locally, and the AI fallback service is temporarily unavailable due to rate limits. Please try again later."
+                    return f"I couldn't find any information about '{food}' locally, and the AI fallback failed. Please try again later."
             return f"I couldn't find any information about '{food}'."
             
         return response.strip()
