@@ -152,6 +152,18 @@ async def get_live_prices():
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+# Add this route to app/api/main.py
+@app.get("/api/health", tags=["System"])
+async def health_check():
+    """
+    Simple health check endpoint for Docker HEALTHCHECK and Cloud Run probes.
+    """
+    return {
+        "status": "healthy",
+        "service": "NutriGuard AI",
+        "version": "2.0.0"
+    }
 
 @app.get("/api/destination/{destination}", tags=["Travel"])
 async def get_destination_info(destination: str):

@@ -15,6 +15,13 @@ try:
 except ImportError:
     _SAMBA_AVAILABLE = False
 
+# Enterprise-grade safety settings for Responsible AI submission
+SAFETY_SETTINGS = [
+    types.SafetySetting(category="HARM_CATEGORY_HARASSMENT", threshold="BLOCK_MEDIUM_AND_ABOVE"),
+    types.SafetySetting(category="HARM_CATEGORY_DANGEROUS_CONTENT", threshold="BLOCK_MEDIUM_AND_ABOVE"),
+    types.SafetySetting(category="HARM_CATEGORY_HATE_SPEECH", threshold="BLOCK_MEDIUM_AND_ABOVE"),
+]
+
 _MAGIC_BYTES = {
     b"%PDF": "application/pdf",
     b"\x89PNG": "image/png",
@@ -44,6 +51,7 @@ async def perform_medical_ocr(file_bytes: bytes) -> OCRResult:
     samba_api_key = os.environ.get("SAMBANOVA_API_KEY")
     mime_type = _detect_mime(file_bytes)
 
+    # 1. Gemini Vision with Safety Settings
     if api_key and _GENAI_AVAILABLE:
         try:
             client = genai.Client(api_key=api_key)
@@ -56,6 +64,7 @@ async def perform_medical_ocr(file_bytes: bytes) -> OCRResult:
                      "as it appears — do not summarise, interpret, or omit anything. "
                      "Return only the raw extracted text.")
                 ],
+                config=types.GenerateContentConfig(safety_settings=SAFETY_SETTINGS)
             )
             extracted = (response.text or "").strip()
             if extracted:
@@ -63,6 +72,7 @@ async def perform_medical_ocr(file_bytes: bytes) -> OCRResult:
         except Exception as e:
             print(f"[OCR] Gemini failed: {e}")
 
+    # 2. SambaNova Vision Fallback
     if samba_api_key and _SAMBA_AVAILABLE and "image" in mime_type:
         try:
             client = SambaNova(api_key=samba_api_key, base_url="https://api.sambanova.ai/v1")
