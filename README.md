@@ -1,71 +1,100 @@
-# NutriGuard AI — Travel Health Copilot
+# 🛡️ NutriGuard AI — Autonomous Travel Health Copilot
 
-> **Google Cloud Rapid Agent Hackathon 2026** | Fivetran Partner Track Submission
+> **Google Cloud Rapid Agent Hackathon 2026** | **Fivetran Partner Track Submission**
 
 [![Python](https://img.shields.io/badge/Python-3.12-blue)](https://python.org)
 [![Gemini](https://img.shields.io/badge/Powered_by-Gemini_2.5_Flash-orange)](https://ai.google.dev)
 [![Fivetran](https://img.shields.io/badge/Partner-Fivetran-green)](https://fivetran.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-## What is NutriGuard AI?
+![NutriGuard AI Banner](nutriguard_banner.png)
 
-NutriGuard AI is a **multi-agent travel health copilot** that keeps chronically ill and allergy-prone travellers safe abroad. Powered by Google Gemini and orchestrated through Google Cloud Agent Builder, it:
-
-- **Reads your medical reports** via Gemini Vision OCR
-- **Detects dangerous drug-food interactions** for your specific destination cuisine (e.g. Warfarin + Natto in Japan)
-- **Curates safe local meals** based on your health profile
-- **Generates a multilingual Waiter Card** translated by Gemini
-- **Locates nearby hospitals and pharmacies** via Google Maps
-- **Tracks real-time food prices** from Agmarknet → Fivetran → BigQuery
+NutriGuard AI is an autonomous multi-agent copilot that transforms static medical records into real-time, context-aware travel health intelligence. By bridging the gap between personal clinical history and global destination data, NutriGuard executes "health missions" to ensure traveler safety.
 
 ---
 
-## Architecture
+## 🌍 The Problem
+Travelers with chronic conditions, severe allergies, or active medication regimes face a "fragmented safety" reality. Existing apps provide generic advice but fail to synthesize **Medical Profiles**, **Culinary Chemistry**, and **Local Infrastructure** in real-time. NutriGuard bridges this gap, ensuring that a peanut allergy in Tokyo or a drug-food interaction in Delhi becomes a managed, low-risk event.
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        User Interface (Streamlit)                    │
-└───────────────────────────────┬─────────────────────────────────────┘
-                                │
-                      ┌─────────▼──────────┐
-                      │  Orchestrator Agent  │   ← Google Cloud Agent Builder
-                      └──────┬──────┬───────┘
-         ┌────────────┬───────┘      └──────────────┐
-         │            │                              │
-    ┌────▼───┐  ┌─────▼──────┐  ┌─────────┐  ┌─────▼────────┐
-    │ Health │  │ Nutrition  │  │ Travel  │  │   Safety     │
-    │ Agent  │  │   Agent    │  │  Agent  │  │   Agent      │
-    └────┬───┘  └─────┬──────┘  └────┬────┘  └──────┬───────┘
-         │            │              │               │
-         └────────────┴──────────────┴───────────────┘
-                                │
-                ┌───────────────▼────────────────┐
-                │      FoodKnowledgeService       │
-                └──┬──────┬──────┬──────┬────────┘
-                   │      │      │      │
-              ┌────▼─┐ ┌──▼─┐ ┌──▼──┐ ┌▼────────────┐
-              │ IFCT │ │USDA│ │Drug │ │  Cuisine KB │
-              │ (IN) │ │(US)│ │ DB  │ │ (179 dishes)│
-              └──────┘ └────┘ └─────┘ └─────────────┘
+## 🚀 The Solution: Agentic Mission Control
+NutriGuard moves beyond simple Q&A. It deploys a **Mission Orchestrator** that coordinates specialized agents to execute end-to-end safety workflows:
 
-                    ⚡ Fivetran Data Pipeline ⚡
-         ┌─────────────────────────────────────────────┐
-         │  Agmarknet API → Fivetran → BigQuery         │
-         │  WHO Advisories → Fivetran → BigQuery        │
-         └─────────────────────────────────────────────┘
+* **Clinical Agent:** Uses Gemini 2.5 Vision to perform high-fidelity OCR on lab reports and prescriptions, structuring them into a JSON health profile.
+* **Safety Agent:** Cross-references the health profile against drug-food interaction databases and the USDA/IFCT nutritional datasets.
+* **Operational Agent (Fivetran-Powered):** Connects our AI to live agricultural and health data via BigQuery, ensuring our intelligence is never based on stale information.
 
-                  🤖 Gemini Intelligence Layer 🤖
-         ┌─────────────────────────────────────────────┐
-         │  OCR Vision: PDF/Image medical reports       │
-         │  NLP Intent: Query routing (safety/price/map)│
-         │  Translation: Multilingual Waiter Cards      │
-         │  Extraction: Structured medical profiles     │
-         └─────────────────────────────────────────────┘
+---
+
+## 🏗️ Architecture
+
+```mermaid
+graph TD
+    User((Traveler)) -->|Uploads Records| UI[Web Dashboard]
+    UI -->|FastAPI| Orchestrator[Mission Orchestrator]
+    
+    subgraph "Agentic Brain (Multi-Agent System)"
+        Orchestrator --> Health[Health Agent]
+        Orchestrator --> Safety[Safety Agent]
+        Orchestrator --> Travel[Travel Agent]
+        Orchestrator --> Query[Query Agent]
+        
+        Health -->|Uses| OCR[Gemini Vision OCR]
+        Safety -->|Uses| Logic[Interaction Logic]
+        Travel -->|Uses| Maps[Google Maps API]
+        Query -->|Uses| MCP[Fivetran MCP Server]
+    end
+    
+    subgraph "Data & Knowledge Backbone"
+        MCP -->|Syncs/Queries| Fivetran[Fivetran Platform]
+        Fivetran -->|Writes| BQ[(Google BigQuery)]
+        
+        BQ -.->|Grounding Data| Query
+        
+        subgraph "Knowledge Bases"
+            IFCT[IFCT/USDA Nutrition DB]
+            DrugDB[Drug-Food Interaction DB]
+            CuisineDB[World Cuisine Knowledge Base]
+        end
+        
+        IFCT -->|Ingest| BQ
+        DrugDB -->|Ingest| BQ
+        CuisineDB -->|Ingest| BQ
+    end
+    
+    Orchestrator -->|Emergency Alert Cards| UI
+    
+    style Orchestrator fill:#4A90E2,color:#fff
+    style Health fill:#F5A623,color:#fff
+    style Safety fill:#D0021B,color:#fff
+    style Travel fill:#7ED321,color:#fff
+    style Query fill:#9013FE,color:#fff
+    style BQ fill:#1a73e8,color:#fff
+    style Fivetran fill:#34a853,color:#fff
 ```
 
 ---
 
-## Key Features
+## 🛠️ Tech Stack
+
+* **AI Orchestration:** Google Cloud Agent Builder, Gemini 2.5 Flash, Gemini Vision.
+* **Data Integration:** Fivetran MCP Server, BigQuery (ELT Pipeline).
+* **Intelligence Layer:** IFCT/USDA/Drug-Food Interaction Knowledge Bases.
+* **Mapping/Geo:** Google Maps API (Hospitals/Pharmacies).
+* **Backend:** FastAPI (Python) & Streamlit.
+
+---
+
+## 🗝️ Fivetran Partner Integration
+
+We treat Fivetran as an active **Operational Agent**. Rather than manual data updates, our Query Agent uses the Fivetran MCP Server to:
+
+1. **Autonomously Verify:** Check pipeline sync status before answering queries.
+2. **Grounding:** Perform SQL-based lookups against BigQuery to ensure nutritional advice is calibrated to the latest regional food market data.
+3. **Resilience:** Provide a scalable ELT foundation for live agricultural data ingestion (Agmarknet).
+
+---
+
+## ✨ Key Features
 
 ### 1. Medication ↔ Destination Cuisine Risk Engine (Unique Feature)
 Detects clinically dangerous drug-food combinations specific to the destination cuisine:
@@ -91,51 +120,64 @@ Ask anything in natural language:
 
 ---
 
-## Fivetran Integration
+## 🏆 Submission Tracks
 
-NutriGuard uses **Fivetran as the data backbone** to ingest and normalize real-world live data:
-
-```
-External APIs                    Fivetran                    BigQuery
-─────────────                    ────────                    ────────
-Agmarknet Prices  ──connector──► agmarknet_prices   ──────► nutriguard_ai.commodity_prices
-WHO Advisories    ──connector──► who_travel_advisories ────► nutriguard_ai.country_alerts
-Hospital Datasets ──connector──► healthcare_facilities ────► nutriguard_ai.hospitals
-```
-
-Set your Fivetran API credentials:
-```bash
-FIVETRAN_API_KEY=your_key
-FIVETRAN_API_SECRET=your_secret
-```
+* **Fivetran Track:** Leveraged Fivetran MCP for real-time, warehouse-grounded AI decision-making.
+* **Agent Platform Track:** Built on a modular multi-agent architecture using Gemini 2.5 and Vertex AI.
 
 ---
 
-## Setup
+## ⚙️ Setup & Deployment
+
+### 1. Local Development
+
+For testing agentic workflows and OCR logic on your local machine:
 
 ```bash
-# Clone the repo
-git clone https://github.com/yourusername/nutriguard-ai
+# Clone the repository
+git clone https://github.com/PranavS1604/NutriGuard-AI
 cd nutriguard-ai
 
-# Install dependencies
+# Install Python dependencies
 pip install -r requirements.txt
 
-# Set environment variables
-export GEMINI_API_KEY=your_gemini_key
-export GOOGLE_MAPS_API_KEY=your_maps_key  # optional
-export FIVETRAN_API_KEY=your_fivetran_key  # optional
+# Configure your environment
+# Create a .env file and add your keys (GEMINI, SAMBANOVA, FIVETRAN, etc.)
+cp .env.example .env
 
-# Run the dashboard
-streamlit run dashboard.py
+# Run the FastAPI application
+uvicorn app.api.main:app --reload
 
-# Run tests
+# Verify Agentic Logic & OCR
 python test_agents_and_ocr.py
 ```
 
+### 2. Production Deployment (Docker)
+
+The project is containerized for consistent deployment across any cloud provider.
+
+```bash
+# Build the Docker image
+docker build -t nutriguard-ai .
+
+# Run the container locally
+docker run -p 8080:8080 \
+  -e GEMINI_API_KEY=your_key \
+  -e FIVETRAN_API_KEY=your_key \
+  nutriguard-ai
+```
+
+### 3. Live Demo
+
+The project is currently hosted and accessible for evaluation:
+
+👉 **[NutriGuard AI Live Dashboard](https://nutriguard-ai.onrender.com/)**
+
+*Note: Ensure the `/api/health` endpoint returns `{"status":"healthy", ...}` to verify the service is ready for agentic missions.*
+
 ---
 
-## Data Sources
+## 📊 Data Sources
 
 | Source | Type | Usage |
 |--------|------|-------|
@@ -149,16 +191,10 @@ python test_agents_and_ocr.py
 
 ---
 
-## License
+## 📄 License
 
 MIT License — see [LICENSE](LICENSE)
 
 ---
 
-## Built with
-
-- [Google Cloud Agent Builder](https://cloud.google.com/agent-builder)
-- [Gemini 2.5 Flash](https://ai.google.dev)
-- [Fivetran](https://fivetran.com)
-- [Google Maps Platform](https://developers.google.com/maps)
-- [Streamlit](https://streamlit.io)
+*Built with ❤️ for the 2026 Google Cloud Rapid Agent Hackathon.*
