@@ -1,0 +1,543 @@
+food_code,food_name,tags
+A001,"Amaranth seed, black","moderate_protein,moderate_fiber,high_iron,moderate_calcium,low_sodium,heart_healthy"
+A002,"Amaranth seed, pale brown","moderate_protein,moderate_fiber,high_iron,moderate_calcium,low_sodium,heart_healthy"
+A003,Bajra,"moderate_protein,high_fiber,moderate_iron,low_sodium,heart_healthy"
+A004,Barley,"moderate_protein,high_fiber,low_sodium,heart_healthy"
+A005,Jowar,"moderate_protein,high_fiber,low_sodium,heart_healthy"
+A006,"Maize, dry","moderate_protein,high_fiber,low_sodium,heart_healthy"
+A007,"Maize, tender, local","moderate_folate,low_sodium"
+A008,"Maize, tender, sweet","moderate_folate,low_sodium"
+A009,Quinoa,"moderate_protein,high_fiber,moderate_iron,moderate_calcium,high_folate,low_sodium,heart_healthy"
+A010,Ragi,"high_fiber,moderate_iron,high_calcium,low_sodium,heart_healthy"
+A011,Rice flakes,"moderate_iron,low_sodium"
+A012,Rice puffed,"moderate_iron,low_sodium"
+A013,"Rice, raw, brown","moderate_protein,moderate_fiber,low_sodium"
+A014,"Rice, parboiled, milled",low_sodium
+A015,"Rice, raw, milled",low_sodium
+A016,Samai,"moderate_protein,moderate_fiber,low_sodium,heart_healthy"
+A017,Varagu,"moderate_protein,moderate_fiber,low_sodium,heart_healthy"
+A018,"Wheat flour, refined","moderate_protein,low_sodium"
+A019,"Wheat flour, atta","moderate_protein,high_fiber,moderate_iron,low_sodium,heart_healthy"
+A020,"Wheat, whole","moderate_protein,high_fiber,low_sodium,heart_healthy"
+A021,"Wheat, bulgur","moderate_protein,high_fiber,low_sodium,heart_healthy"
+A022,"Wheat, semolina","moderate_protein,high_fiber,low_sodium,heart_healthy"
+A023,"Wheat, vermicelli","moderate_protein,high_fiber,low_sodium,heart_healthy"
+A024,"Wheat, vermicelli, roasted","moderate_protein,high_fiber,low_sodium,heart_healthy"
+B001,"Bengal gram, dal","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B002,"Bengal gram, whole","high_protein,high_fiber,moderate_iron,moderate_calcium,high_folate,low_sodium,heart_healthy"
+B003,"Black gram, dal","high_protein,high_fiber,moderate_iron,moderate_folate,low_sodium,heart_healthy"
+B004,"Black gram, whole","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B005,"Cowpea, brown","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B006,"Cowpea, white","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B007,"Field bean, black","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B008,"Field bean, brown","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B009,"Field bean, white","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B010,"Green gram, dal","high_protein,high_fiber,moderate_folate,low_sodium,heart_healthy"
+B011,"Green gram, whole","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B012,"Horse gram, whole","high_protein,moderate_fiber,high_iron,high_calcium,high_folate,low_sodium,heart_healthy"
+B013,Lentil dal,"high_protein,high_fiber,moderate_iron,low_sodium,heart_healthy"
+B014,"Lentil whole, brown","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B015,"Lentil whole, yellowish","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B016,Moth bean,"high_protein,high_fiber,moderate_iron,moderate_calcium,high_folate,low_sodium,heart_healthy"
+B017,"Peas, dry","high_protein,high_fiber,moderate_iron,high_folate,low_sodium,heart_healthy"
+B018,"Rajmah, black","high_protein,high_fiber,moderate_iron,moderate_calcium,high_folate,low_sodium,heart_healthy"
+B019,"Rajmah, brown","high_protein,high_fiber,moderate_iron,moderate_calcium,high_folate,low_sodium,heart_healthy"
+B020,"Rajmah, red","high_protein,high_fiber,moderate_iron,moderate_calcium,high_folate,low_sodium,heart_healthy"
+B021,"Red gram, dal","high_protein,high_fiber,high_folate,low_sodium,heart_healthy"
+B022,"Red gram, whole","high_protein,high_fiber,moderate_iron,moderate_calcium,high_folate,low_sodium,heart_healthy"
+B023,Ricebean,"high_protein,high_fiber,moderate_iron,high_calcium,high_folate,low_sodium,heart_healthy"
+B024,"Soya bean, brown","high_protein,high_fiber,high_iron,high_calcium,high_folate,low_sodium"
+B025,"Soya bean, white","high_protein,high_fiber,high_iron,moderate_calcium,high_folate,low_sodium"
+C001,Agathi leaves,"moderate_protein,high_fiber,moderate_iron,high_calcium,high_vitamin_c,high_folate,low_sodium,heart_healthy"
+C002,"Amaranth leaves, green","moderate_fiber,moderate_iron,high_calcium,high_vitamin_c,moderate_folate,low_sodium"
+C003,"Amaranth leaves, red mix","moderate_fiber,moderate_iron,high_calcium,high_vitamin_c,moderate_folate,low_sodium"
+C004,"Amaranth leaves, red and green mix","moderate_fiber,moderate_iron,high_calcium,high_vitamin_c,moderate_folate,low_sodium"
+C005,"Amaranth spinosus, leaves, green mix","moderate_fiber,moderate_iron,high_calcium,high_vitamin_c,low_sodium,heart_healthy"
+C006,"Amaranth spinosus, leaves, red and green mix","moderate_fiber,moderate_iron,high_calcium,high_vitamin_c,low_sodium,heart_healthy"
+C007,Basella leaves,"moderate_iron,high_vitamin_c,moderate_folate,low_sodium"
+C008,Bathua leaves,"moderate_fiber,high_calcium,high_vitamin_c,low_sodium"
+C009,Beet greens,"moderate_iron,moderate_calcium,high_vitamin_c"
+C010,"Betel leaves, big (kolkata)","high_calcium,moderate_vitamin_c,low_sodium"
+C011,"Betel leaves, small","moderate_calcium,moderate_vitamin_c,low_sodium"
+C012,Brussels sprouts,"moderate_fiber,high_vitamin_c,moderate_folate,low_sodium"
+C013,"Cabbage, Chinese","moderate_vitamin_c,moderate_folate,low_sodium"
+C014,"Cabbage, collard greens","moderate_calcium,high_vitamin_c,moderate_folate,low_sodium"
+C015,"Cabbage, green","high_vitamin_c,low_sodium"
+C016,"Cabbage, violet","high_vitamin_c,low_sodium"
+C017,Cauliflower leaves,"high_vitamin_c,low_sodium"
+C018,"Colocasia leaves, green","moderate_fiber,high_calcium,high_vitamin_c,high_folate,low_sodium,heart_healthy"
+C019,Drumstick leaves,"high_fiber,moderate_iron,high_calcium,high_vitamin_c,low_sodium,heart_healthy"
+C020,Fenugreek leaves,"moderate_fiber,moderate_iron,high_calcium,high_vitamin_c,moderate_folate,low_sodium"
+C021,Garden cress,"moderate_iron,high_calcium,high_vitamin_c,moderate_folate,low_sodium"
+C022,"Gogu leaves, green","moderate_fiber,moderate_iron,moderate_calcium,moderate_vitamin_c,moderate_folate,low_sodium"
+C023,"Gogu leaves, red","high_iron,moderate_calcium,high_vitamin_c,moderate_folate,low_sodium"
+C024,"Knol-Khol, leaves","high_calcium,high_vitamin_c,low_sodium"
+C025,Lettuce,"moderate_vitamin_c,low_sodium"
+C026,Mustard leaves,"moderate_calcium,high_vitamin_c,high_folate,low_sodium"
+C027,Pak Choi leaves,"moderate_calcium,high_vitamin_c,moderate_folate,low_sodium"
+C028,Parsley,"moderate_iron,high_calcium,high_vitamin_c,high_folate"
+C029,Ponnaganni,"moderate_fiber,high_calcium,high_vitamin_c,low_sodium,heart_healthy"
+C030,"Pumpkin leaves, tender","moderate_iron,high_calcium,moderate_vitamin_c,low_sodium"
+C031,Radish leaves,"high_calcium,high_vitamin_c,moderate_folate,low_sodium"
+C032,Rumex leaves,"moderate_calcium,high_vitamin_c,low_sodium"
+C033,Spinach,"high_vitamin_c,high_folate,low_sodium"
+C034,"Tamarind leaves, tender","high_fiber,moderate_vitamin_c,moderate_folate,low_sodium,heart_healthy"
+D001,Ash gourd,"moderate_vitamin_c,low_sodium"
+D002,"Bamboo shoot, tender","moderate_vitamin_c,low_sodium"
+D003,"Bean scarlet, tender","moderate_fiber,low_sodium"
+D004,"Bitter gourd, jagged, teeth ridges, elongate","high_vitamin_c,moderate_folate,low_sodium"
+D005,"Bitter gourd, jagged, teeth ridges, short","high_vitamin_c,moderate_folate,low_sodium"
+D006,"Bitter gourd, jagged, smooth ridges, elongate","high_vitamin_c,moderate_folate,low_sodium"
+D007,"Bottle gourd, elongate, pale green",low_sodium
+D008,"Bottle gourd, round, pale green",low_sodium
+D009,"Bottle gourd, elongate, dark green",low_sodium
+D010,Brinjal-1,low_sodium
+D011,Brinjal-2,"moderate_fiber,low_sodium"
+D012,Brinjal-3,"moderate_fiber,low_sodium"
+D013,Brinjal-4,"moderate_fiber,low_sodium"
+D014,Brinjal-5,"moderate_fiber,low_sodium"
+D015,Brinjal-6,low_sodium
+D016,Brinjal-7,low_sodium
+D017,Brinjal-8,"moderate_fiber,low_sodium"
+D018,Brinjal-9,"moderate_fiber,low_sodium"
+D019,Brinjal-10,low_sodium
+D020,Brinjal-11,"moderate_fiber,low_sodium"
+D021,Brinjal-12,low_sodium
+D022,Brinjal-13,low_sodium
+D023,Brinjal-14,low_sodium
+D024,Brinjal-15,low_sodium
+D025,Brinjal-16,low_sodium
+D026,Brinjal-17,low_sodium
+D027,Brinjal-18,"moderate_fiber,low_sodium"
+D028,Brinjal-19,low_sodium
+D029,Brinjal-20,low_sodium
+D030,Brinjal-21,low_sodium
+D031,Brinjal - all varieties,low_sodium
+D032,Broad beans,"high_fiber,moderate_vitamin_c,low_sodium,heart_healthy"
+D033,"Capsicum, green","high_vitamin_c,moderate_folate,low_sodium"
+D034,"Capsicum, red","high_vitamin_c,moderate_folate,low_sodium"
+D035,"Capsicum, yellow","high_vitamin_c,moderate_folate,low_sodium"
+D036,Cauliflower,"high_vitamin_c,low_sodium"
+D037,Celery stalk,"moderate_vitamin_c,low_sodium"
+D038,Cho-cho-marrow,"moderate_vitamin_c,moderate_folate,low_sodium"
+D039,Cluster beans,"moderate_fiber,moderate_calcium,moderate_vitamin_c,low_sodium"
+D040,"Colocasia, stem, black",low_sodium
+D041,"Colocasia, stem, green",low_sodium
+D042,"Corn, Baby","moderate_fiber,low_sodium,heart_healthy"
+D043,"Cucumber, green, elongate",low_sodium
+D044,"Cucumber, green, short",low_sodium
+D045,"Cucumber, orange, round",low_sodium
+D046,Drumstick,"moderate_fiber,high_vitamin_c,moderate_folate,low_sodium,heart_healthy"
+D047,"Field beans, tender, broad","moderate_fiber,high_folate,low_sodium,heart_healthy"
+D048,"Field beans, tender, lean","moderate_fiber,high_folate,low_sodium,heart_healthy"
+D049,"French beans, country","moderate_fiber,moderate_vitamin_c,low_sodium"
+D050,"French beans, hybrid","moderate_fiber,moderate_folate,low_sodium"
+D051,"Jack fruit, raw","moderate_fiber,moderate_vitamin_c,low_sodium,heart_healthy"
+D052,"Jack fruit, seed, mature","high_fiber,moderate_folate,low_sodium,heart_healthy"
+D053,Knol - Khol,"high_vitamin_c,low_sodium"
+D054,"Kovai, big","moderate_vitamin_c,low_sodium"
+D055,"Kovai, small","moderate_vitamin_c,moderate_folate,low_sodium"
+D056,Ladies finger,"moderate_fiber,moderate_vitamin_c,moderate_folate,low_sodium"
+D057,"Mango, green, raw","high_vitamin_c,low_sodium"
+D058,"Onion, stalk","moderate_fiber,moderate_vitamin_c,moderate_folate,low_sodium,heart_healthy"
+D059,"Papaya, raw","moderate_vitamin_c,low_sodium"
+D060,Parwar,"moderate_vitamin_c,low_sodium"
+D061,"Peas, fresh","moderate_fiber,high_vitamin_c,moderate_folate,low_sodium,heart_healthy"
+D062,"Plantain, flower","moderate_fiber,low_sodium,heart_healthy"
+D063,"Plantain, green","moderate_vitamin_c,low_sodium"
+D064,"Plantain, stem",low_sodium
+D065,"Pumpkin, green, cylindrical",low_sodium
+D066,"Pumpkin, orange, round",low_sodium
+D067,"Red gram, tender, fresh","moderate_protein,moderate_fiber,moderate_vitamin_c,moderate_folate,low_sodium,heart_healthy"
+D068,Ridge gourd,low_sodium
+D069,"Ridge gourd, smooth skin",low_sodium
+D070,"Snake gourd, long, pale green",low_sodium
+D071,"Snake gourd, long, dark green",low_sodium
+D072,"Snake gourd, short",low_sodium
+D073,"Tinda, tender","moderate_vitamin_c,low_sodium"
+D074,"Tomato, green","moderate_vitamin_c,low_sodium"
+D075,"Tomato, ripe, hybrid","moderate_vitamin_c,low_sodium"
+D076,"Tomato, ripe, local","moderate_vitamin_c,low_sodium"
+D077,"Zucchini, green","moderate_vitamin_c,low_sodium"
+D078,"Zucchini, yellow","moderate_vitamin_c,low_sodium"
+E001,"Apple, big",low_sodium
+E002,"Apple, green",low_sodium
+E003,"Apple, small",low_sodium
+E004,"Apple, small, Kashmir",low_sodium
+E005,"Apricot, dried",low_sodium
+E006,"Apricot, processed",low_sodium
+E007,Avocado fruit,"moderate_fiber,moderate_folate,low_sodium"
+E008,Bael fruit,"moderate_fiber,moderate_folate,low_sodium,heart_healthy"
+E009,"Banana, ripe, montham",low_sodium
+E010,"Banana, ripe, poovam",low_sodium
+E011,"Banana, ripe, red",low_sodium
+E012,"Banana, ripe, robusta",low_sodium
+E013,Black berry,"moderate_fiber,moderate_vitamin_c,low_sodium"
+E014,"Cherries, red",low_sodium
+E015,"Currants, black","moderate_fiber,high_vitamin_c,low_sodium"
+E016,Custard apple,"moderate_fiber,moderate_vitamin_c,low_sodium,heart_healthy"
+E017,"Dates, dry, pale brown","high_fiber,low_sodium,heart_healthy"
+E018,"Dates, dry, dark brown","high_fiber,moderate_iron,low_sodium,heart_healthy"
+E019,"Dates, processed","moderate_fiber,moderate_vitamin_c,low_sodium,heart_healthy"
+E020,Fig,"moderate_fiber,moderate_vitamin_c,low_sodium"
+E021,Goosberry,"moderate_fiber,high_vitamin_c,low_sodium,heart_healthy"
+E022,"Grapes, seeded, round, black","moderate_vitamin_c,low_sodium"
+E023,"Grapes, seeded, round, green","moderate_vitamin_c,low_sodium"
+E024,"Grapes, seeded, round, red","moderate_vitamin_c,low_sodium"
+E025,"Grapes, seedless, oval, black","moderate_vitamin_c,low_sodium"
+E026,"Grapes, seedless, round, green","moderate_vitamin_c,low_sodium"
+E027,"Grapes, seedless, round, black","moderate_vitamin_c,low_sodium"
+E028,"Guava, white flesh","high_fiber,high_vitamin_c,low_sodium,heart_healthy"
+E029,"Guava, pink flesh","moderate_fiber,high_vitamin_c,low_sodium,heart_healthy"
+E030,"Jack fruit, ripe",low_sodium
+E031,"Jambu fruit, ripe","moderate_vitamin_c,low_sodium"
+E032,Karonda fruit,"moderate_fiber,high_vitamin_c,low_sodium,heart_healthy"
+E033,"Lemon, juice","high_vitamin_c,low_sodium"
+E034,"Lime, sweet, pulp","high_vitamin_c,low_sodium"
+E035,Litchi,"high_vitamin_c,low_sodium"
+E036,"Mango, ripe, banganapalli","high_vitamin_c,moderate_folate,low_sodium"
+E037,"Mango, ripe, gulabkhas","moderate_vitamin_c,moderate_folate,low_sodium"
+E038,"Mango, ripe, himsagar","high_vitamin_c,moderate_folate,low_sodium"
+E039,"Mango, ripe, kesar","moderate_vitamin_c,moderate_folate,low_sodium"
+E040,"Mango, ripe, neelam","moderate_vitamin_c,moderate_folate,low_sodium"
+E041,"Mango, ripe, paheri","high_vitamin_c,moderate_folate,low_sodium"
+E042,"Mango, ripe, totapari","moderate_vitamin_c,moderate_folate,low_sodium"
+E043,Mangosteen,"moderate_vitamin_c,low_sodium"
+E044,Manila tamarind,"moderate_fiber,high_vitamin_c,low_sodium"
+E045,"Musk melon, orange flesh","moderate_vitamin_c,low_sodium"
+E046,"Musk melon, yellow flesh","moderate_vitamin_c,low_sodium"
+E047,"Orange, pulp","high_vitamin_c,low_sodium"
+E048,"Palm fruit, tender",low_sodium
+E049,"Papaya, ripe","high_vitamin_c,moderate_folate,low_sodium"
+E050,Peach,low_sodium
+E051,Pear,"moderate_fiber,low_sodium"
+E052,Phalsa,"moderate_fiber,moderate_calcium,low_sodium"
+E053,Pineapple,"high_vitamin_c,low_sodium"
+E054,Plum,low_sodium
+E055,"Pomegranate, maroon seeds","moderate_vitamin_c,low_sodium"
+E056,Pummelo,"high_vitamin_c,low_sodium"
+E057,"Raisins, dried, black","moderate_iron,low_sodium"
+E058,"Raisins, dried, golden","moderate_fiber,moderate_iron,low_sodium"
+E059,Rambutan,"high_vitamin_c,low_sodium"
+E060,Sapota,"high_fiber,moderate_vitamin_c,low_sodium,heart_healthy"
+E061,Soursop,"moderate_fiber,high_vitamin_c,low_sodium"
+E062,Star fruit,"high_vitamin_c,low_sodium"
+E063,Strawberry,"high_vitamin_c,low_sodium"
+E064,"Tamarind, pulp","moderate_fiber,high_iron,moderate_calcium,low_sodium,heart_healthy"
+E065,"Water melon, dark green (sugar baby)","moderate_vitamin_c,low_sodium"
+E066,"Water melon, pale green","moderate_vitamin_c,low_sodium"
+E067,Wood Apple,"moderate_fiber,moderate_vitamin_c,low_sodium,heart_healthy"
+E068,Zizyphus,"high_vitamin_c,low_sodium"
+F001,Beet root,moderate_folate
+F002,"Carrot, orange",moderate_fiber
+F003,"Carrot, red",moderate_fiber
+F004,Colocasia,low_sodium
+F005,Lotus root,"moderate_fiber,moderate_vitamin_c,low_sodium"
+F006,"Potato, brown skin, big","moderate_vitamin_c,low_sodium"
+F007,"Potato, brown skin, small","moderate_vitamin_c,low_sodium"
+F008,"Potato, red skin","moderate_vitamin_c,low_sodium"
+F009,"Radish, elongate, red skin","moderate_vitamin_c,low_sodium"
+F010,"Radish, elongate, white skin","moderate_vitamin_c,low_sodium"
+F011,"Radish, round, red skin","moderate_vitamin_c,low_sodium"
+F012,"Radish, round, white skin","moderate_vitamin_c,low_sodium"
+F013,"Sweet potato, brown skin","moderate_vitamin_c,low_sodium"
+F014,"Sweet potato, pink skin","moderate_vitamin_c,low_sodium"
+F015,Tapioca,"moderate_fiber,moderate_vitamin_c,low_sodium"
+F016,Water Chestnut,low_sodium
+F017,"Yam, elephant","moderate_fiber,moderate_vitamin_c,low_sodium"
+F018,"Yam, ordinary","moderate_fiber,moderate_vitamin_c,low_sodium"
+F019,"Yam, wild","moderate_fiber,moderate_vitamin_c,low_sodium"
+G001,"Chillies, green-1","moderate_fiber,high_vitamin_c,low_sodium"
+G002,"Chillies, green-2","moderate_fiber,high_vitamin_c,low_sodium,heart_healthy"
+G003,"Chillies, green-3","moderate_fiber,high_vitamin_c,low_sodium,heart_healthy"
+G004,"Chillies, green-4","moderate_fiber,high_vitamin_c,low_sodium"
+G005,"Chillies, green-5","high_vitamin_c,low_sodium"
+G006,"Chillies, green-6","moderate_fiber,high_vitamin_c,low_sodium,heart_healthy"
+G007,"Chillies, green-7","moderate_fiber,high_vitamin_c,low_sodium"
+G008,"Chillies, green - all varieties","moderate_fiber,high_vitamin_c,low_sodium"
+G009,Coriander leaves,"moderate_fiber,moderate_iron,moderate_calcium,moderate_vitamin_c,moderate_folate,low_sodium"
+G010,Curry leaves,"high_fiber,high_iron,high_calcium,high_folate,low_sodium,heart_healthy"
+G011,"Garlic, big clove","moderate_fiber,moderate_vitamin_c,moderate_folate,low_sodium,heart_healthy"
+G012,"Garlic, small clove","moderate_fiber,moderate_vitamin_c,moderate_folate,low_sodium,heart_healthy"
+G013,"Garlic, single clove, Kashmir","moderate_fiber,moderate_vitamin_c,moderate_folate,low_sodium"
+G014,"Ginger, fresh","moderate_fiber,low_sodium,heart_healthy"
+G015,Mango ginger,"moderate_fiber,low_sodium"
+G016,Mint leaves,"moderate_fiber,high_iron,high_calcium,moderate_vitamin_c,high_folate,low_sodium,heart_healthy"
+G017,"Onion, big",low_sodium
+G018,"Onion, small","moderate_vitamin_c,low_sodium"
+G019,Asafoetida,"moderate_fiber,high_iron,high_calcium,low_sodium,heart_healthy"
+G020,"Cardamom, green","moderate_protein,high_fiber,high_iron,high_calcium,low_sodium,heart_healthy"
+G021,"Cardamom, black","high_fiber,moderate_iron,high_calcium,low_sodium,heart_healthy"
+G022,"Chillies, red","moderate_protein,high_fiber,moderate_iron,moderate_folate,low_sodium,heart_healthy"
+G023,Cloves,"high_fiber,high_iron,high_calcium"
+G024,Coriander seeds,"moderate_protein,high_fiber,high_iron,high_calcium,low_sodium"
+G025,Cumin seeds,"moderate_protein,high_fiber,high_iron,high_calcium"
+G026,Fenugreek seeds,"high_protein,high_fiber,high_iron,moderate_calcium,moderate_folate,low_sodium,heart_healthy"
+G027,Mace,"high_fiber,high_iron,moderate_calcium,low_sodium"
+G028,Nutmeg,"high_fiber,moderate_calcium,moderate_folate,low_sodium"
+G029,Omum,"high_protein,high_fiber,high_iron,high_calcium,moderate_folate,low_sodium"
+G030,Pippali,"moderate_protein,high_fiber,moderate_iron,high_calcium,moderate_folate,low_sodium,heart_healthy"
+G031,"Pepper, black","moderate_protein,high_fiber,high_iron,high_calcium,low_sodium,heart_healthy"
+G032,Poppy seeds,"high_protein,high_fiber,high_iron,high_calcium,moderate_folate,low_sodium"
+G033,Turmeric powder,"high_fiber,high_iron,moderate_calcium,low_sodium,heart_healthy"
+H001,Almond,"high_protein,high_fiber,moderate_iron,high_calcium,low_sodium"
+H002,"Arecanut, dried, brown","high_fiber,low_sodium,heart_healthy"
+H003,"Arecanut, dried, red color","high_fiber,low_sodium,heart_healthy"
+H004,"Arecanut, fresh","moderate_fiber,low_sodium,heart_healthy"
+H005,Cashew nut,"high_protein,moderate_iron,low_sodium"
+H006,"Coconut, kernal, dry","high_fiber,low_sodium"
+H007,"Coconut, kernel, fresh","high_fiber,low_sodium"
+H008,"Garden cress, seeds","high_protein,high_fiber,high_iron,high_calcium,low_sodium"
+H009,"Gingelly seeds, black","high_protein,high_fiber,high_iron,high_calcium,high_folate,low_sodium"
+H010,"Gingelly seeds, brown","high_protein,high_fiber,high_iron,high_calcium,moderate_folate,low_sodium"
+H011,"Gingelly seeds, white","high_protein,high_fiber,high_iron,high_calcium,high_folate,low_sodium"
+H012,Ground nut,"high_protein,high_fiber,moderate_folate,low_sodium"
+H013,Mustard seeds,"high_protein,high_fiber,high_iron,high_calcium,moderate_folate,low_sodium"
+H014,Linseeds,"high_protein,high_fiber,moderate_iron,high_calcium,moderate_folate,low_sodium"
+H015,"Niger seeds, black","high_protein,high_fiber,high_iron,high_calcium,high_folate,low_sodium"
+H016,"Niger seeds, gray","high_protein,high_fiber,high_iron,high_calcium,moderate_folate,low_sodium"
+H017,Pine seed,"moderate_protein,moderate_iron,low_sodium"
+H018,Pistachio nuts,"high_protein,high_fiber,moderate_iron,moderate_calcium,moderate_folate,low_sodium"
+H019,Safflower seeds,"high_protein,high_fiber,moderate_iron,high_calcium,moderate_folate,low_sodium"
+H020,Sunflower seeds,"high_protein,high_fiber,moderate_iron,moderate_calcium,moderate_folate,low_sodium"
+H021,Walnut,"moderate_protein,moderate_fiber,moderate_calcium,moderate_folate,low_sodium"
+I001,"Jaggery, cane","moderate_iron,moderate_calcium,low_sodium"
+I002,"Sugarcane, juice",low_sodium
+J001,"Button mushroom, fresh",low_sodium
+J002,"Chicken mushroom, fresh",low_sodium
+J003,"Shiitake mushroom, fresh",low_sodium
+J004,"Oyster mushroom, dried","high_protein,high_fiber,low_sodium,heart_healthy"
+K001,Toddy,low_sodium
+K002,Coconut Water,low_sodium
+L001,"Milk, whole, Buffalo","moderate_calcium,low_sodium"
+L002,"Milk, whole, Cow","moderate_calcium,low_sodium"
+L003,Panner,"high_protein,high_calcium,moderate_folate,low_sodium"
+L004,Khoa,"high_protein,high_calcium,moderate_folate,low_sodium"
+M001,"Egg, poultry, whole, raw",moderate_protein
+M002,"Egg, poultry, white, raw",moderate_protein
+M003,"Egg, poultry, yolk, raw","high_protein,moderate_calcium,high_folate,low_sodium"
+M004,"Egg, poultry, whole, boiled",moderate_protein
+M005,"Egg, poultry, white, boiled",moderate_protein
+M006,"Egg, poultry, yolk, boiled","high_protein,moderate_iron,moderate_calcium,high_folate,low_sodium"
+M007,"Egg, poultry, omlet",high_protein
+M008,"Egg, country hen, whole, raw","moderate_protein,moderate_folate"
+M009,"Egg, country hen, whole, boiled","moderate_protein,moderate_folate"
+M010,"Egg, country hen, omlet","moderate_protein,moderate_folate"
+M011,"Egg, duck, whole, boiled","moderate_protein,moderate_folate"
+M012,"Egg, duck, whole, raw","moderate_protein,moderate_folate"
+M013,"Egg, duck, whole, omlet","high_protein,moderate_folate"
+M014,"Egg, quial, whole, raw","moderate_protein,moderate_folate"
+M015,"Egg, quial, whole, boiled","moderate_protein,moderate_folate"
+N001,"Chicken, poultry, leg, skinless",high_protein
+N002,"Chicken, poultry, thigh, skinless",high_protein
+N003,"Chicken, poultry, breast, skinless","high_protein,low_sodium"
+N004,"Chicken, poultry, wing, skinless",high_protein
+N005,"Poultry, chicken, liver","high_protein,high_iron,high_folate"
+N006,"Poultry, chicken, gizzard",high_protein
+N007,"Country hen, leg, with skin",high_protein
+N008,"Country hen, thigh, with skin",high_protein
+N009,"Country hen, breast, with skin","high_protein,low_sodium"
+N010,"Country hen, wing, with skin",high_protein
+N011,"Duck, meat, with skin","high_protein,moderate_iron"
+N012,"Emu, meat, skinless","high_protein,low_sodium"
+N013,"Guinea fowl, meat, with skin",high_protein
+N014,"Pigeon, meat, with skin",high_protein
+N015,"Quail, meat, skinless",high_protein
+N016,"Turkey, leg, with skin",high_protein
+N017,"Turkey, thigh, with skin",high_protein
+N018,"Turkey, breast, with skin","high_protein,low_sodium"
+N019,"Turkey, wing, with skin",high_protein
+O001,"Goat, shoulder, meat","high_protein,low_sodium"
+O002,"Goat, chops","high_protein,low_sodium"
+O003,"Goat, legs","high_protein,low_sodium"
+O004,"Goat, brain",moderate_protein
+O005,"Goat, tongue",high_protein
+O006,"Goat, lungs","high_protein,moderate_iron"
+O007,"Goat, heart",high_protein
+O008,"Goat, liver","high_protein,moderate_iron"
+O009,"Goat, tripe","high_protein,low_sodium"
+O010,"Goat, spleen","high_protein,high_iron"
+O011,"Goat, kidneys","high_protein,moderate_iron"
+O012,"Goat, tube (small intestine)","moderate_protein,low_sodium"
+O013,"Goat, testis",moderate_protein
+O014,"Sheep, shoulder","high_protein,low_sodium"
+O015,"Sheep, chops","high_protein,low_sodium"
+O016,"Sheep, leg","high_protein,low_sodium"
+O017,"Sheep, brain",moderate_protein
+O018,"Sheep, tongue",high_protein
+O019,"Sheep, lungs","high_protein,high_iron"
+O020,"Sheep, heart",high_protein
+O021,"Sheep, liver","high_protein,moderate_iron"
+O022,"Sheep, tripe","high_protein,low_sodium"
+O023,"Sheep, spleen","high_protein,high_iron"
+O024,"Sheep, kidneys","high_protein,moderate_iron"
+O025,"Beef, shoulder","high_protein,low_sodium"
+O026,"Beef, chops","high_protein,low_sodium"
+O027,"Beef, round (leg)","high_protein,low_sodium"
+O028,"Beef, brain",moderate_protein
+O029,"Beef, tongue",high_protein
+O030,"Beef, lungs","high_protein,moderate_iron"
+O031,"Beef, heart",high_protein
+O032,"Beef, liver","high_protein,high_iron"
+O033,"Beef, tripe","moderate_protein,low_sodium"
+O034,"Beef, spleen","high_protein,high_iron"
+O035,"Beef, kidneys","high_protein,moderate_iron"
+O036,"Calf, shoulder",high_protein
+O037,"Calf, chops",high_protein
+O038,"Calf, round (leg)",high_protein
+O039,"Calf, brain",moderate_protein
+O040,"Calf, tongue",high_protein
+O041,"Calf, heart","high_protein,moderate_iron"
+O042,"Calf, liver","high_protein,high_iron"
+O043,"Calf, spleen","high_protein,high_iron"
+O044,"Calf, kidneys","high_protein,moderate_iron"
+O045,"Mithun, shoulder","high_protein,low_sodium"
+O046,"Mithun, chops","high_protein,low_sodium"
+O047,"Mithun, round (leg)","high_protein,low_sodium"
+O048,"Pork, shoulder",high_protein
+O049,"Pork, chops","high_protein,low_sodium"
+O050,"Pork, ham","high_protein,low_sodium"
+O051,"Pork, lungs","high_protein,moderate_iron"
+O052,"Pork, heart",high_protein
+O053,"Pork, liver","high_protein,high_iron"
+O054,"Pork, stomach",high_protein
+O055,"Pork, spleen","high_protein,high_iron,low_sodium"
+O056,"Pork, kidneys","moderate_protein,moderate_iron"
+O057,"Pork, tube (small intestine)",moderate_protein
+O058,"Hare, shoulder",high_protein
+O059,"Hare, chops","high_protein,low_sodium"
+O060,"Hare, leg","high_protein,low_sodium"
+O061,"Rabbit, shoulder",high_protein
+O062,"Rabbit, chops","high_protein,low_sodium"
+O063,"Rabbit, leg","high_protein,low_sodium"
+P001,Allathi,"high_protein,low_sodium"
+P002,Aluva,"high_protein,low_sodium"
+P003,Anchovy,high_protein
+P004,Ari fish,"high_protein,low_sodium"
+P005,Betki,high_protein
+P006,Black snapper,"high_protein,low_sodium"
+P007,Bombay duck,"moderate_protein,moderate_calcium"
+P008,Bommuralu,high_protein
+P009,Cat fish,"high_protein,low_sodium"
+P010,Chakla,high_protein
+P011,Chappal,"high_protein,low_sodium"
+P012,Chelu,"high_protein,low_sodium"
+P013,Chembali,"high_protein,low_sodium"
+P014,Eri meen,"high_protein,low_sodium"
+P015,Gobro,high_protein
+P016,Guitar fish,high_protein
+P017,Hilsa,high_protein
+P018,Jallal,high_protein
+P019,Jathi vela meen,"high_protein,low_sodium"
+P020,Kadal bral,high_protein
+P021,Kadali,"high_protein,low_sodium"
+P022,Kalamaara,"high_protein,low_sodium"
+P023,Kalava,"high_protein,low_sodium"
+P024,Kanamayya,high_protein
+P025,Kannadi paarai,high_protein
+P026,Karimeen,"high_protein,low_sodium"
+P027,Karnagawala,high_protein
+P028,Kayrai,"high_protein,low_sodium"
+P029,Kiriyan,"high_protein,low_sodium"
+P030,Kite fish,high_protein
+P031,Korka,"high_protein,low_sodium"
+P032,Kulam paarai,"high_protein,low_sodium"
+P033,Maagaa,high_protein
+P034,Mackerel,high_protein
+P035,Manda clathi,high_protein
+P036,Matha,high_protein
+P037,Milk fish,"high_protein,low_sodium"
+P038,Moon fish,high_protein
+P039,Mullet,high_protein
+P040,Mural,high_protein
+P041,Myil meen,high_protein
+P042,Nalla bontha,high_protein
+P043,Narba,"high_protein,low_sodium"
+P044,Paarai,"high_protein,low_sodium"
+P045,Padayappa,"high_protein,low_sodium"
+P046,Pali kora,high_protein
+P047,Pambada,high_protein
+P048,Pandukopa,"high_protein,low_sodium"
+P049,Parava,high_protein
+P050,Parcus,high_protein
+P051,Parrot fish,high_protein
+P052,Perinkilichai,"high_protein,low_sodium"
+P053,Phopat,"high_protein,low_sodium"
+P054,Piranha,"high_protein,low_sodium"
+P055,"Pomfret, black",high_protein
+P056,"Pomfret, snub nose","high_protein,low_sodium"
+P057,"Pomfret, white","high_protein,low_sodium"
+P058,Pranel,high_protein
+P059,Pulli paarai,high_protein
+P060,Queen fish,"high_protein,low_sodium"
+P061,Raai fish,"high_protein,low_sodium"
+P062,Raai vanthu,high_protein
+P063,Rani,high_protein
+P064,"Ray fish, bow head, spotted",high_protein
+P065,Red snapper,high_protein
+P066,"Red snapper, small","high_protein,low_sodium"
+P067,Sadaya,"high_protein,low_sodium"
+P068,Salmon,"high_protein,low_sodium"
+P069,Sangada,high_protein
+P070,Sankata paarai,"high_protein,low_sodium"
+P071,Sardine,"high_protein,low_sodium"
+P072,Shark,high_protein
+P073,"Shark, hammer head",high_protein
+P074,"Shark, spotted",high_protein
+P075,Shelavu,"high_protein,low_sodium"
+P076,Silan,"high_protein,low_sodium"
+P077,Silk fish,"high_protein,low_sodium"
+P078,Silver carp,"high_protein,low_sodium"
+P079,Sole fish,high_protein
+P080,Stingray,high_protein
+P081,Tarlava,high_protein
+P082,Tholam,"high_protein,low_sodium"
+P083,Tilapia,high_protein
+P084,Tuna,high_protein
+P085,"Tuna, striped","high_protein,low_sodium"
+P086,Valava,high_protein
+P087,Vanjaram,"high_protein,low_sodium"
+P088,Vela meen,"high_protein,low_sodium"
+P089,Vora,"high_protein,low_sodium"
+P090,Whale shark,high_protein
+P091,Xiphinis,high_protein
+P092,"Eggs, Cat fish","high_protein,moderate_iron"
+Q001,Crab,"moderate_protein,moderate_calcium"
+Q002,"Crab, sea","high_protein,high_calcium"
+Q003,"Lobster, brown",high_protein
+Q004,"Lobster, king siz e",high_protein
+Q005,Mud crab,"moderate_protein,high_calcium"
+Q006,Oyster,"moderate_protein,moderate_calcium,low_sodium"
+Q007,"Tiger prawns, brown",moderate_protein
+Q008,"Tiger Prawns, orange",moderate_protein
+R001,"Clam, green shell","moderate_protein,moderate_calcium"
+R002,"Clam, white shell, ribbed",moderate_protein
+R003,Octopus,moderate_protein
+R004,"Squid, black",high_protein
+R005,"Squid, hard shell",high_protein
+R006,"Squid, red",high_protein
+R007,"Squid, white, small",high_protein
+S001,Cat fish,"high_protein,low_sodium"
+S002,Catla,"high_protein,low_sodium"
+S003,Freshwater Eel,high_protein
+S004,Gold fish,"high_protein,low_sodium"
+S005,Pangas,"high_protein,low_sodium"
+S006,Rohu,"high_protein,low_sodium"
+S007,Crab,"moderate_protein,moderate_calcium"
+S008,"Prawns, big",high_protein
+S009,"Prawns, small",moderate_protein
+S010,Tiger prawns,moderate_protein
+T001,Coconut oil,low_sodium
+T002,Corn oil,low_sodium
+T003,Cotton seed oil,low_sodium
+T004,Gingelly oil,low_sodium
+T005,Groundnut oil,low_sodium
+T006,Mustard oil,low_sodium
+T007,Palm oil,low_sodium
+T008,Rice bran oil,low_sodium
+T009,Safflower oil,low_sodium
+T010,Safflower oil (blended),low_sodium
+T011,Soyabean oil,low_sodium
+T012,Sunflower oil,low_sodium
+T013,Ghee,low_sodium
+T014,Vanaspati,low_sodium

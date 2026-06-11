@@ -1,0 +1,53 @@
+# NutriGuard AI — Cloud Build CI/CD
+# Triggered automatically on git push to main branch
+# gcloud builds submit --config cloudbuild.yaml
+
+steps:
+
+  # Step 1: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/nutriguard-ai:$COMMIT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/nutriguard-ai:latest'
+      - '.'
+
+  # Step 2: Push image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Push
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'gcr.io/$PROJECT_ID/nutriguard-ai'
+    waitFor: ['Build']
+
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: Deploy
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'nutriguard-ai'
+      - '--image=gcr.io/$PROJECT_ID/nutriguard-ai:$COMMIT_SHA'
+      - '--region=us-central1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--memory=2Gi'
+      - '--cpu=2'
+      - '--concurrency=80'
+      - '--timeout=300'
+      - '--set-secrets=GEMINI_API_KEY=GEMINI_API_KEY:latest,GOOGLE_MAPS_API_KEY=GOOGLE_MAPS_API_KEY:latest,FIVETRAN_API_KEY=FIVETRAN_API_KEY:latest,FIVETRAN_API_SECRET=FIVETRAN_API_SECRET:latest'
+      - '--set-env-vars=ENVIRONMENT=production,USE_SECRET_MANAGER=true'
+    waitFor: ['Push']
+
+images:
+  - 'gcr.io/$PROJECT_ID/nutriguard-ai:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/nutriguard-ai:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8'
