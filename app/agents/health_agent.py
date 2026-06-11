@@ -10,7 +10,6 @@ class HealthAgent:
     async def run(self, context: MissionContext) -> HealthProfile:
         conditions, allergies, medications = [], [], []
 
-        # Process OCR bytes
         for report_bytes in context.medical_reports:
             ocr_result = await perform_medical_ocr(report_bytes)
             text = ocr_result.extracted_text or ""
@@ -20,7 +19,6 @@ class HealthAgent:
                 allergies.extend(parsed.get("allergies", []))
                 medications.extend(parsed.get("medications", []))
 
-        # FIX: Safely parse metadata as dict
         if not (conditions or allergies or medications):
             metadata = context.metadata or {}
             med_text = metadata.get("medical_text") or metadata.get("report_text") or ""
@@ -44,8 +42,5 @@ class HealthAgent:
             risk_level = "Moderate"
 
         return HealthProfile(
-            conditions=conditions,
-            allergies=allergies,
-            medications=medications,
-            risk_level=risk_level,
+            conditions=conditions, allergies=allergies, medications=medications, risk_level=risk_level,
         )

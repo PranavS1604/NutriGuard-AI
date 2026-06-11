@@ -1,10 +1,26 @@
-/**
- * NutriGuard AI — Frontend Application Logic
- */
-
-const API_BASE = ''; // Same origin
-
+const API_BASE = ''; 
 let _lastParsedProfile = null;
+
+// ============ Simple Markdown Parser ============
+function parseMarkdown(text) {
+  if (!text) return "";
+  let html = text;
+  // Headers (### Header)
+  html = html.replace(/^### (.*$)/gim, '<h3 class="md-header">$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2 class="md-header">$1</h2>');
+  // Bolding (**text**)
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  // Italics (*text*)
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  // Bullet points
+  html = html.replace(/^\* (.*$)/gim, '<li class="md-list-item">$1</li>');
+  html = html.replace(/<\/li>\n<li/g, '</li><li'); 
+  // Wrap sequential lists in ul
+  html = html.replace(/(<li class="md-list-item">.*<\/li>)/s, '<ul class="md-list">$1</ul>');
+  // Line breaks
+  html = html.replace(/\n/g, '<br/>');
+  return html;
+}
 
 // ============ Utilities ============
 async function api(endpoint, method = 'GET', body = null) {
@@ -38,8 +54,7 @@ function showTab(name, btn) {
 
 function setStatus(msg) {
   const bar = document.getElementById('statusBar');
-  const text = document.getElementById('statusText');
-  if (msg) { bar.style.display = 'flex'; text.textContent = msg; } 
+  if (msg) { bar.style.display = 'flex'; document.getElementById('statusText').textContent = msg; } 
   else { bar.style.display = 'none'; }
 }
 
@@ -50,22 +65,8 @@ function setLoading(id, loading) {
   btn.style.opacity = loading ? '0.7' : '1';
 }
 
-function showToast(msg, type = 'info') {
-  const existing = document.getElementById('toastMsg');
-  if (existing) existing.remove();
-  const toast = document.createElement('div');
-  toast.id = 'toastMsg';
-  toast.className = `toast toast-${type}`;
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.classList.add('show'), 10);
-  setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3500);
-}
-
-// FIX: Added missing Tab Switcher
 window.switchInputTab = function(tab) {
   document.querySelectorAll('.upload-tab').forEach(el => el.classList.remove('active'));
-  
   if (tab === 'upload') {
     document.getElementById('tabUpload').classList.add('active');
     document.getElementById('panelUpload').style.display = 'block';
@@ -89,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
       destTimeout = setTimeout(() => fetchDestInfo(destInput.value), 600);
     });
   }
-  loadPrices();
   setupFileUpload();
 });
 
@@ -122,7 +122,7 @@ function setupFileUpload() {
 }
 
 function handleFileSelected(file) {
-  if (file.size > 10 * 1024 * 1024) { showToast('File too large. Max 10MB.', 'error'); return; }
+  if (file.size > 10 * 1024 * 1024) { alert('File too large. Max 10MB.'); return; }
   document.getElementById('previewFileName').textContent = file.name;
   document.getElementById('previewFileSize').textContent = `${(file.size / 1024).toFixed(1)} KB`;
   document.getElementById('filePreview').style.display = 'flex';
@@ -139,34 +139,30 @@ function clearFile() {
 
 async function uploadAndOCR() {
   const file = window._selectedFile;
-  if (!file) { showToast('Select a file first.', 'error'); return; }
-  setLoading('ocrBtn', true);
-  setStatus('Running Gemini Vision OCR...');
+  if (!file) { alert('Select a file first.'); return; }
+  setLoading('ocrBtn', true); setStatus('Running Gemini Vision OCR...');
   try {
     const formData = new FormData(); formData.append('file', file);
     const result = await apiMultipart('/ocr', formData);
-    if (result.extracted_text) {
-      document.getElementById('medicalText').value = result.extracted_text;
-      showToast(`✅ OCR complete! Extracted ${result.extracted_text.length} chars`, 'success');
-    }
+    if (result.extracted_text) document.getElementById('medicalText').value = result.extracted_text;
     if (result.parsed_profile) {
       _lastParsedProfile = result.parsed_profile;
       renderProfilePreview(result.parsed_profile);
     }
-  } catch (e) { showToast('OCR failed: ' + e.message, 'error'); } 
+  } catch (e) { alert('OCR failed: ' + e.message); } 
   finally { setLoading('ocrBtn', false); setStatus(null); }
 }
 
 // ============ Parse Profile ============
 async function parseMedical() {
   const text = document.getElementById('medicalText').value.trim();
-  if (!text) { showToast('Enter medical text first.', 'error'); return; }
+  if (!text) { alert('Enter medical text first.'); return; }
   setLoading('parseBtn', true);
   try {
     const result = await api('/parse', 'POST', { text });
     _lastParsedProfile = result;
     renderProfilePreview(result);
-  } catch (e) { showToast('Parse failed: ' + e.message, 'error'); } 
+  } catch (e) { alert('Parse failed: ' + e.message); } 
   finally { setLoading('parseBtn', false); }
 }
 
@@ -182,7 +178,7 @@ function renderProfilePreview(profile) {
 async function runMission() {
   const destination = document.getElementById('destination').value.trim();
   const medicalText = document.getElementById('medicalText').value.trim();
-  if (!destination) { showToast('Please enter a destination.', 'error'); return; }
+  if (!destination) { alert('Please enter a destination.'); return; }
 
   setLoading('missionBtn', true);
   setStatus('Running multi-agent mission (Health → Nutrition → Travel → Safety)...');
@@ -195,8 +191,7 @@ async function runMission() {
     });
     if (result.health_profile) _lastParsedProfile = result.health_profile;
     renderMissionResult(result, _lastParsedProfile);
-    showToast('✅ Mission complete!', 'success');
-  } catch (e) { showToast('Mission failed: ' + e.message, 'error'); } 
+  } catch (e) { alert('Mission failed: ' + e.message); } 
   finally { setLoading('missionBtn', false); setStatus(null); }
 }
 
@@ -210,60 +205,90 @@ function renderMissionResult(result, profile) {
   document.getElementById('riskHeader').className = `risk-header ${risk}`;
   document.getElementById('riskHeader').innerHTML = `<span class="risk-label">${riskEmoji} Overall Risk: ${result.overall_risk}</span>`;
 
-  // Health Tab
-  const hp = profile || {};
-  document.getElementById('tab-health').innerHTML = `
-    <div class="health-summary">${result.health_summary}</div>
-  `;
+  // Health
+  document.getElementById('tab-health').innerHTML = `<div class="health-summary">${result.health_summary}</div>`;
 
-  // Meals Tab
+  // Meals
   const meals = result.meal_plan || [];
   document.getElementById('tab-meals').innerHTML = meals.length
     ? meals.map((m, i) => `<div class="meal-card"><div class="meal-num">${i + 1}</div><div class="meal-text">${m}</div></div>`).join('')
     : '<p>No meal plan available.</p>';
 
-  // Risks Tab
+  // Risks
   const risksHTML = (result.risks || []).map(r => `<div class="risk-item"><div class="risk-item-text">${r}</div></div>`).join('');
   const actionsHTML = (result.emergency_actions || []).map(a => `<li class="action-item">› ${a}</li>`).join('');
   document.getElementById('tab-risks').innerHTML = `${risksHTML}<div style="margin-top:1rem;"><ul>${actionsHTML}</ul></div>`;
 
-  // Waiter Card Tab
+  // Card - UPDATED STYLING
   document.getElementById('tab-card').innerHTML = `
-    <div class="waiter-card">
-      <div class="card-title">NutriGuard Medical Alert Card</div>
-      <div class="translation-text" style="margin-top:1rem;">${result.waiter_card_translation || 'Translation error.'}</div>
-    </div>
-  `;
+    <div class="waiter-card-container">
+      <div class="waiter-card-header">
+        <div class="card-icon">🛡️</div>
+        <div>
+          <h3>Medical Alert Card</h3>
+          <p>Please show this to restaurant staff or medical personnel.</p>
+        </div>
+      </div>
+      <div class="waiter-card-body">
+        <div class="translation-label">🌐 Auto-Translated via Gemini</div>
+        <div class="translation-text">${result.waiter_card_translation || 'Translation error.'}</div>
+      </div>
+    </div>`;
 
   // Hospitals
   const hospitals = result.hospital_recommendations || [];
   document.getElementById('tab-hospitals').innerHTML = hospitals.map(h => {
     const name = typeof h === 'string' ? h : h.name;
-    return `<div class="hospital-card">🏥 <b>${name}</b></div>`;
+    const address = typeof h === 'object' && h.vicinity ? h.vicinity : 'Verified Location';
+    const mapQuery = encodeURIComponent(`${name} ${address}`);
+    return `
+    <div class="hospital-card">
+      <div class="hospital-icon">🏥</div>
+      <div class="hospital-info">
+        <div class="hospital-name">${name}</div>
+        <div class="hospital-meta">${address}</div>
+        <a href="http://googleusercontent.com/maps.google.com/3{mapQuery}" target="_blank" class="hospital-link">View on Google Maps →</a>
+      </div>
+    </div>`;
   }).join('');
 
   document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth' });
 }
 
-// ============ Query Agent ============
+// ============ Query Chat Agent ============
 async function runQuery() {
-  const query = document.getElementById('queryInput').value.trim();
+  const queryInput = document.getElementById('queryInput');
+  const query = queryInput.value.trim();
   if (!query) return;
-  const resultEl = document.getElementById('queryResult');
-  resultEl.style.display = 'block'; resultEl.textContent = 'Thinking...';
+
+  const chatContainer = document.getElementById('queryChatContainer');
+  chatContainer.style.display = 'flex';
+  
+  chatContainer.innerHTML += `<div class="chat-message user"><div class="chat-bubble">${query}</div></div>`;
+  queryInput.value = ''; 
+
+  const loadingId = 'loading-' + Date.now();
+  chatContainer.innerHTML += `<div class="chat-message ai" id="${loadingId}"><div class="chat-bubble loading">Agent is analysing data...</div></div>`;
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
   try {
-    const data = await api('/query', 'POST', { query, destination: document.getElementById('destination').value });
-    resultEl.textContent = data.response;
-  } catch (e) { resultEl.textContent = 'Error: ' + e.message; }
+    const dest = document.getElementById('destination').value;
+    const profile = _lastParsedProfile || {};
+    const data = await api('/query', 'POST', { 
+      query, 
+      destination: dest || null,
+      conditions: profile.conditions || [],
+      allergies: profile.allergies || [],
+      medications: profile.medications || []
+    });
+    
+    // Parse Gemini's markdown into clean HTML
+    const formattedHtml = parseMarkdown(data.response);
+    document.getElementById(loadingId).innerHTML = `<div class="chat-bubble ai-response-formatted">${formattedHtml}</div>`;
+  } catch (e) { 
+    document.getElementById(loadingId).innerHTML = `<div class="chat-bubble error">Error: ${e.message}</div>`;
+  }
+  chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-async function loadPrices() {
-  try {
-    const data = await api('/prices');
-    if (data.prices) {
-      document.getElementById('priceCards').innerHTML = data.prices.slice(0, 4).map(p => `
-        <div class="price-card"><b>${p.commodity}</b><br>₹${p.price} (${p.trend})</div>
-      `).join('');
-    }
-  } catch (_) {}
-}
+document.getElementById('queryInput').addEventListener('keydown', e => { if (e.key === 'Enter') runQuery(); });

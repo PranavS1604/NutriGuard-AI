@@ -4,216 +4,112 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NutriGuard AI — Travel Health Copilot</title>
-  <meta name="description" content="Upload your prescription, detect dangerous drug-food interactions, and get a safe meal plan for your destination — powered by Gemini." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="navbar">
   <div class="nav-container">
-    <div class="nav-brand">
-      <span class="nav-logo">🛡️</span>
-      <span>NutriGuard <span class="accent">AI</span></span>
-    </div>
+    <div class="nav-brand"><span class="nav-logo">🛡️</span><span>NutriGuard <span class="accent">AI</span></span></div>
     <div class="nav-badges">
       <span class="tech-badge">Gemini 2.5</span>
       <span class="tech-badge fivetran">Fivetran</span>
       <span class="tech-badge gcp">Google Cloud</span>
     </div>
-    <a href="/api/docs" target="_blank" class="btn-ghost">API Docs →</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero-bg-grid"></div>
-  <div class="hero-orb orb-1"></div>
-  <div class="hero-orb orb-2"></div>
+  <div class="hero-bg-grid"></div><div class="hero-orb orb-1"></div><div class="hero-orb orb-2"></div>
   <div class="hero-content">
-    <div class="hero-badge">
-      <span class="pulse-dot"></span>
-      Multi-Agent AI · Google Cloud Agent Builder
-    </div>
-    <h1 class="hero-title">
-      Your Intelligent<br />
-      <span class="gradient-text">Travel Health Copilot</span>
-    </h1>
-    <p class="hero-desc">
-      Upload your prescription. Choose your destination. Four specialised AI agents detect dangerous drug-food interactions, curate safe local meals, and generate a multilingual emergency card — powered by Gemini 2.5.
-    </p>
+    <div class="hero-badge"><span class="pulse-dot"></span>Multi-Agent AI · Google Cloud Agent Builder</div>
+    <h1 class="hero-title">Your Intelligent<br /><span class="gradient-text">Travel Health Copilot</span></h1>
+    <p class="hero-desc">Upload your prescription. Choose your destination. Four specialised AI agents detect dangerous drug-food interactions, curate safe local meals, and generate a multilingual emergency card.</p>
     <div class="hero-actions">
-      <button class="btn-primary" onclick="scrollToApp()">
-        Start Mission <span>→</span>
-        <div class="btn-shimmer"></div>
-      </button>
-      <a href="https://github.com" target="_blank" class="btn-outline">View on GitHub</a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-num">10K+</span><span class="stat-label">Drug Interactions</span></div>
-      <div class="stat-divider"></div>
-      <div class="stat"><span class="stat-num">179</span><span class="stat-label">Cuisine Dishes</span></div>
-      <div class="stat-divider"></div>
-      <div class="stat"><span class="stat-num">4</span><span class="stat-label">AI Agents</span></div>
-      <div class="stat-divider"></div>
-      <div class="stat"><span class="stat-num">120+</span><span class="stat-label">Destinations</span></div>
+      <button class="btn-primary" onclick="scrollToApp()">Start Mission <span>→</span><div class="btn-shimmer"></div></button>
     </div>
   </div>
 </section>
 
-<!-- ARCHITECTURE STRIP -->
-<section class="arch-strip">
-  <div class="arch-container">
-    <div class="arch-node"><div class="arch-icon">📄</div><div class="arch-label">Medical Report</div></div>
-    <div class="arch-arrow">→</div>
-    <div class="arch-node highlight"><div class="arch-icon">👁️</div><div class="arch-label">Gemini OCR</div></div>
-    <div class="arch-arrow">→</div>
-    <div class="arch-node highlight"><div class="arch-icon">🤖</div><div class="arch-label">4 AI Agents</div></div>
-    <div class="arch-arrow">→</div>
-    <div class="arch-node highlight"><div class="arch-icon">⚡</div><div class="arch-label">Fivetran Pipeline</div></div>
-    <div class="arch-arrow">→</div>
-    <div class="arch-node"><div class="arch-icon">🛡️</div><div class="arch-label">Health Report</div></div>
-  </div>
-</section>
-
-<!-- MAIN APP -->
 <section class="app-section" id="app">
   <div class="app-container">
 
-    <!-- LEFT: INPUT PANEL -->
     <div class="panel input-panel">
-      <div class="panel-header">
-        <h2 class="panel-title">Mission Configuration</h2>
-        <div class="panel-badge">Powered by Gemini</div>
-      </div>
+      <div class="panel-header"><h2 class="panel-title">Mission Configuration</h2><div class="panel-badge">Powered by Gemini</div></div>
 
-      <!-- Destination -->
       <div class="form-group">
         <label class="form-label"><span class="label-icon">🗺️</span> Destination</label>
-        <input type="text" id="destination" class="form-input"
-               placeholder="Tokyo, Paris, Bangkok, Mumbai, Dubai…"
-               oninput="onDestInput()" autocomplete="off" />
+        <input type="text" id="destination" class="form-input" placeholder="Tokyo, Paris, Bangkok..." autocomplete="off" />
         <div id="destInfo" class="dest-info" style="display:none;"></div>
-        <div class="form-hint">120+ destinations. Unknown cities resolved by Gemini AI.</div>
       </div>
 
-      <!-- Medical Report -->
       <div class="upload-section">
-        <label class="form-label"><span class="label-icon">🏥</span> Medical Report / Prescription</label>
-
-        <!-- Tab switcher -->
+        <label class="form-label"><span class="label-icon">🏥</span> Medical Report</label>
         <div class="upload-tabs">
-          <button class="upload-tab active" id="tabUpload"  onclick="switchInputTab('upload')">📁 Upload File</button>
-          <button class="upload-tab"        id="tabText"    onclick="switchInputTab('text')">✏️ Paste Text</button>
+          <button class="upload-tab active" id="tabUpload" onclick="switchInputTab('upload')">📁 Upload File</button>
+          <button class="upload-tab" id="tabText" onclick="switchInputTab('text')">✏️ Paste Text</button>
         </div>
 
-        <!-- Upload panel -->
         <div id="panelUpload">
           <div class="drop-zone" id="dropZone">
             <div class="drop-zone-icon">📤</div>
             <div class="drop-zone-text">Drop your medical report here</div>
-            <div class="drop-zone-hint">JPG, PNG, WEBP, PDF · Max 10 MB</div>
-            <input type="file" id="medicalFile"
-                   accept="image/jpeg,image/png,image/webp,image/gif,application/pdf,.jpg,.jpeg,.png,.webp,.pdf" />
+            <input type="file" id="medicalFile" accept="image/*,application/pdf" style="display:none;" />
           </div>
-
-          <!-- File preview -->
           <div class="file-preview" id="filePreview" style="display:none;">
-            <img class="preview-img" id="previewImg" src="" alt="Preview" style="display:none;" />
             <div class="preview-info">
               <div class="preview-filename" id="previewFileName">filename.jpg</div>
               <div class="preview-filesize" id="previewFileSize">0 KB</div>
             </div>
             <button class="preview-clear" onclick="clearFile()">✕ Remove</button>
           </div>
-
-          <!-- OCR button (shown after file selected) -->
-          <button class="btn-ocr" id="ocrBtn" style="display:none;" onclick="uploadAndOCR()">
-            <span>👁️</span> Run Gemini Vision OCR
-          </button>
-
-          <!-- OCR status message -->
-          <div id="ocrStatus" class="ocr-status" style="display:none;"></div>
+          <button class="btn-ocr" id="ocrBtn" style="display:none;" onclick="uploadAndOCR()"><span>👁️</span> Run Gemini Vision OCR</button>
         </div>
 
-        <!-- Text panel (hidden initially) -->
         <div id="panelText" style="display:none;">
-          <textarea id="medicalText" class="form-textarea" rows="6"
-            placeholder="Paste medical report text, or describe your conditions and medications…
-
-Example:
-Patient has DIABETES and HIGH CHOLESTEROL.
-Allergies: SEVERE PEANUT ALLERGY.
-Medications: Metformin 500mg, Warfarin 5mg daily."></textarea>
-          <div class="form-hint">Gemini AI will extract conditions, allergies &amp; medications automatically.</div>
+          <textarea id="medicalText" class="form-textarea" rows="6" placeholder="Patient has DIABETES and HIGH CHOLESTEROL..."></textarea>
         </div>
       </div>
 
-      <!-- Parse button (text tab only) -->
-      <button class="btn-secondary" id="parseBtn" onclick="parseMedical()" style="display:none;">
-        <span>🔍</span> Extract Medical Profile
-      </button>
+      <button class="btn-secondary" id="parseBtn" onclick="parseMedical()" style="display:none;"><span>🔍</span> Extract Medical Profile</button>
 
-      <!-- Profile preview -->
       <div id="profilePreview" class="profile-preview" style="display:none;">
         <div class="preview-header">Extracted Health Profile</div>
         <div id="profileContent"></div>
       </div>
 
-      <!-- Mission button -->
       <button class="btn-primary full-width" id="missionBtn" onclick="runMission()">
-        <span class="btn-label">🚀 Run Full Mission</span>
-        <div class="btn-shimmer"></div>
+        <span class="btn-label">🚀 Run Full Mission</span><div class="btn-shimmer"></div>
       </button>
 
-      <!-- Status bar -->
       <div id="statusBar" class="status-bar" style="display:none;">
-        <div class="status-spinner"></div>
-        <span id="statusText">Initialising…</span>
+        <div class="status-spinner"></div><span id="statusText">Initialising…</span>
       </div>
 
-      <!-- Query agent -->
-      <div class="divider"><span>or ask anything</span></div>
+      <div class="divider"><span>Ask the Clinical Agent</span></div>
+      <div id="queryChatContainer" class="query-chat-container" style="display:none;"></div>
       <div class="query-row">
-        <input type="text" id="queryInput" class="form-input"
-               placeholder="Can I eat sushi in Tokyo?" />
+        <input type="text" id="queryInput" class="form-input" placeholder="e.g. Can I eat Rasgulla if I have Diabetes?" />
         <button class="btn-icon" id="queryBtn" onclick="runQuery()" title="Ask">→</button>
       </div>
-      <div id="queryResult" class="query-result" style="display:none;"></div>
     </div>
 
-    <!-- RIGHT: RESULTS PANEL -->
     <div class="panel results-panel" id="resultsPanel">
-
-      <!-- Empty state -->
       <div class="empty-state" id="emptyState">
-        <div class="empty-icon">🌍</div>
-        <h3>Your Mission Results Appear Here</h3>
-        <p>Set your destination and health profile, then click <strong>Run Full Mission</strong> for a personalised travel health report.</p>
-        <div class="feature-chips">
-          <span class="chip">💊 Drug-Cuisine Engine</span>
-          <span class="chip">🍽️ Safe Meal Plan</span>
-          <span class="chip">🌐 Waiter Card</span>
-          <span class="chip">🏥 Hospitals</span>
-        </div>
+        <div class="empty-icon">🌍</div><h3>Your Mission Results Appear Here</h3>
       </div>
 
-      <!-- Results -->
       <div id="missionResults" style="display:none;">
         <div id="riskHeader" class="risk-header"></div>
-
         <div class="tabs">
           <button class="tab active" onclick="showTab('health', this)">🏥 Health</button>
-          <button class="tab"        onclick="showTab('meals',  this)">🍽️ Meals</button>
-          <button class="tab"        onclick="showTab('risks',  this)">⚠️ Risks</button>
-          <button class="tab"        onclick="showTab('card',   this)">🌐 Card</button>
-          <button class="tab"        onclick="showTab('hospitals', this)">🏨 Hospitals</button>
+          <button class="tab" onclick="showTab('meals', this)">🍽️ Meals</button>
+          <button class="tab" onclick="showTab('risks', this)">⚠️ Risks</button>
+          <button class="tab" onclick="showTab('card', this)">🌐 Card</button>
+          <button class="tab" onclick="showTab('hospitals', this)">🏨 Hospitals</button>
         </div>
-
-        <div class="tab-content"                  id="tab-health"></div>
+        <div class="tab-content" id="tab-health"></div>
         <div class="tab-content" style="display:none;" id="tab-meals"></div>
         <div class="tab-content" style="display:none;" id="tab-risks"></div>
         <div class="tab-content" style="display:none;" id="tab-card"></div>
@@ -223,116 +119,6 @@ Medications: Metformin 500mg, Warfarin 5mg daily."></textarea>
 
   </div>
 </section>
-
-<!-- PIPELINE SECTION -->
-<section class="pipeline-section" id="pipeline">
-  <div class="section-container">
-    <div class="section-header">
-      <div class="section-badge">Fivetran Partner Integration</div>
-      <h2 class="section-title">Live Data Pipeline</h2>
-      <p class="section-desc">Real-time agricultural price intelligence: Agmarknet → Fivetran → BigQuery → Agents</p>
-    </div>
-    <div class="pipeline-visual">
-      <div class="pipe-node">
-        <div class="pipe-icon">🌾</div>
-        <div class="pipe-label">Agmarknet API</div>
-        <div class="pipe-sub">Live commodity prices</div>
-        <div class="pipe-status active">● Live</div>
-      </div>
-      <div class="pipe-connector">
-        <div class="pipe-flow"></div>
-        <div class="pipe-label-mid">Fivetran Connector</div>
-      </div>
-      <div class="pipe-node transform">
-        <div class="pipe-icon">⚡</div>
-        <div class="pipe-label">Fivetran</div>
-        <div class="pipe-sub">ELT Pipeline</div>
-        <div class="pipe-status active">● Syncing</div>
-      </div>
-      <div class="pipe-connector">
-        <div class="pipe-flow"></div>
-        <div class="pipe-label-mid">→ BigQuery</div>
-      </div>
-      <div class="pipe-node">
-        <div class="pipe-icon">🗄️</div>
-        <div class="pipe-label">BigQuery</div>
-        <div class="pipe-sub">nutriguard_ai dataset</div>
-        <div class="pipe-status ready">● Ready</div>
-      </div>
-      <div class="pipe-connector">
-        <div class="pipe-flow"></div>
-        <div class="pipe-label-mid">Agent Query</div>
-      </div>
-      <div class="pipe-node">
-        <div class="pipe-icon">🤖</div>
-        <div class="pipe-label">NutriGuard AI</div>
-        <div class="pipe-sub">Price-aware agents</div>
-        <div class="pipe-status active">● Active</div>
-      </div>
-    </div>
-    <div id="priceCards" class="price-cards">
-      <div class="loading-bar"></div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features-section">
-  <div class="section-container">
-    <div class="section-header">
-      <h2 class="section-title">Built for Real-World Impact</h2>
-    </div>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">👁️</div>
-        <h3>Gemini Vision OCR</h3>
-        <p>Upload a photo or PDF of your prescription. Gemini Vision extracts conditions, allergies, and medications with structured JSON output — no manual typing.</p>
-        <div class="feature-example">Upload image → Gemini OCR → Structured Profile</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">💊</div>
-        <h3>Medication ↔ Cuisine Engine</h3>
-        <p>Detects <strong>Warfarin + Natto</strong>, <strong>Statins + Grapefruit</strong>, <strong>Metformin + Sake</strong> — clinically validated interactions specific to your destination cuisine.</p>
-        <div class="feature-example">Warfarin + Japan → Avoid Natto [Critical]</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌐</div>
-        <h3>Multilingual Waiter Card</h3>
-        <p>Gemini translates your exact medical profile into Japanese, French, Thai, Korean, Arabic — to show waiters and doctors in the local language.</p>
-        <div class="feature-example">Show to waiter in local language</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🗺️</div>
-        <h3>Live Hospital Finder</h3>
-        <p>Google Maps API locates the nearest hospitals and pharmacies within 15 km of your destination in real time. Set GOOGLE_MAPS_API_KEY to enable.</p>
-        <div class="feature-example">Nearest hospital in Bangkok →</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-container">
-    <div class="nav-brand">
-      <span class="nav-logo">🛡️</span>
-      <span>NutriGuard <span class="accent">AI</span></span>
-    </div>
-    <div class="footer-info">
-      <span>Google Cloud Rapid Agent Hackathon 2026</span>
-      <span class="divider-dot">·</span>
-      <span>Fivetran Partner Track</span>
-      <span class="divider-dot">·</span>
-      <a href="/api/docs" class="footer-link">API Reference</a>
-    </div>
-    <div class="footer-tech">
-      <span class="tech-chip">Gemini 2.5 Flash</span>
-      <span class="tech-chip">Cloud Run</span>
-      <span class="tech-chip">Fivetran</span>
-      <span class="tech-chip">BigQuery</span>
-    </div>
-  </div>
-</footer>
 
 <script src="/static/app.js"></script>
 </body>

@@ -12,7 +12,6 @@ class CuisineRepository:
         except FileNotFoundError:
             self.df = pd.DataFrame()
 
-        # FIX: Gracefully handle missing columns to prevent KeyErrors
         expected_columns = ["name", "alias", "cuisines", "associated_cuisines", "countries", "area", "ingredients", "text_description"]
         for col in expected_columns:
             if col not in self.df.columns:
