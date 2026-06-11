@@ -129,6 +129,7 @@ def _parse_fallback(text: str) -> Dict[str, Any]:
     risk_level = "Low"
     high_risk_meds = {"warfarin", "cyclosporine", "digoxin", "mao inhibitors"}
     high_risk_allergies = {"peanuts", "shellfish", "tree nuts"}
+    
     if any(m.lower() in high_risk_meds for m in medications):
         risk_level = "High"
     elif any(a.lower() in high_risk_allergies for a in allergies):
@@ -155,7 +156,9 @@ def parse_medical_text(text: str) -> Dict[str, Any]:
 
     # Use Gemini for any non-trivial text
     api_key = os.environ.get("GEMINI_API_KEY")
-    if api_key and _GENAI_AVAILABLE and len(stripped) >= 50:
+    
+    # FIX: Lowered character threshold to 15 so it catches short inputs like "I take Warfarin"
+    if api_key and _GENAI_AVAILABLE and len(stripped) >= 15:
         try:
             client = genai.Client(api_key=api_key)
             prompt = (
@@ -163,7 +166,7 @@ def parse_medical_text(text: str) -> Dict[str, Any]:
                 "from the following text. Be thorough — the text may be informal, abbreviated, or OCR output.\n\n"
                 f"Text:\n{stripped}\n\n"
                 "Extract all conditions/diseases, allergies (food and drug), and active medications. "
-                "Assess risk_level as \'Low\', \'Moderate\', or \'High\' based on the severity of conditions "
+                "Assess risk_level as 'Low', 'Moderate', or 'High' based on the severity of conditions "
                 "and medications found. High = critical drugs (Warfarin, Cyclosporine, MAOIs) or "
                 "life-threatening allergies (anaphylaxis, severe). Moderate = any chronic condition or medication. "
                 "Return only JSON."
